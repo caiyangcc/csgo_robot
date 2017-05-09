@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RollMapper">
+    
+    
+    
+    <!-- 查询所有的权限-->
+    <select id="getAllPermission" parameterType="pd" resultType="pd">
+     	select id,name from roll_power  
+    </select>
+    
+    <!-- 查询uid -->
+    <select id="getUid" parameterType="pd" resultType="pd">
+    	select id from steam_user where steam_uid=#{steam_id}
+    </select>
+    
+    <!-- 插入权限表 -->
+    <insert id="savePermission" parameterType="java.util.List">
+    	insert into roll_power_grant(steam_uid,user_id,date_created,date_updated,status,roll_power_id,value)
+    	values
+    	<foreach collection="list" item="item" index="index" separator="," >  
+				(
+				#{item.steam_uid},#{item.user_id},NOW(),NOW(),#{item.status},#{item.roll_power_id},#{item.value}
+				)
+		</foreach>  	
+    </insert>
+    
+    <!-- 插入图片表 -->
+    
+     <insert id="saveImage" parameterType="java.util.List">
+    	insert into roll_room_icon(steam_uid,user_id,icon_url,description,date_created,date_updated,status)
+    	values
+    	<foreach collection="list" item="item" index="index" separator="," >  
+				(
+				#{item.steam_uid},#{item.user_id},#{item.icon_url},#{item.description},NOW(),NOW(),#{item.status}
+				)
+		</foreach>  	
+    </insert>
+    
+    <!-- 修改权限 -->
+    <update id="updatePermission" parameterType="pd">
+     update roll_power_grant set date_updated=NOW(),status=#{status},value=#{value}
+     where id=#{id}   
+    </update>
+    
+    <!-- 修改图片 -->
+    <update id="updateImage" parameterType="pd">
+     update roll_room_icon set  date_updated=NOW(),icon_url=#{icon_url},description=#{icon_url} 
+     where id=#{imgId}
+    </update>
+    <!-- 通过steamid查询权限 -->
+    <select id="permissionList" parameterType="pd" resultType="pd">
+     select g.*,r.name from roll_power_grant g left join roll_power r on g.roll_power_id=r.id where g.steam_uid=#{steam_id}
+    </select>
+    
+    
+    <!-- 验证steamid是否已经添加 -->
+    <select id="checkSteam" parameterType="pd" resultType="pd">
+     select id from roll_power_grant where steam_uid=#{steam_id}
+    </select>
+    
+    
+    <!-- 通过steamid查询图片 -->
+    <select id="imageList" parameterType="pd" resultType="pd">
+     select * from roll_room_icon where steam_uid=#{steam_id}
+    </select>
+    
+    
+    <!-- 查询所有的房间列表 -->
+    <select id="getAllRoomListlistPage" parameterType="page" resultType="pd">
+    	select r.*,IFNULL(m.count,0) as count from roll_room r
+    	left join (select roll_room_id,count(id) as count from roll_product where status!=4 group by roll_room_id) m
+    	on r.id=m.roll_room_id
+    	where 1=1 
+    	<if test="pd.id != null and pd.id != ''"><!-- 标题检索 -->
+			and r.id=#{pd.id}
+		</if>
+		
+		<if test="pd.steam_uid != null and pd.steam_uid != ''"><!-- 标题检索 -->
+			and r.steam_uid= #{pd.steam_uid} 
+		</if>
+    	
+    	order by r.date_updated desc
+    </select>
+    
+    
+    <!-- 查询房间状态 -->
+    	<select id="getRoomStatus" parameterType="pd" resultType="pd">
+    	 select * from roll_room where id=#{id}
+    	</select>
+    
+    
+    <!-- 更改房间状态 -->
+    <update id="updateStatus" parameterType="pd">
+    	update roll_room set name_active=#{name_active},icon_active=#{icon_active},description_active=#{description_active}
+    	where id=#{id} 
+    </update>
+    
+    
+    <!-- 关闭房间 -->
+    <update id="cancleRoom" parameterType="pd">
+    	update roll_room set status=4,date_updated=NOW() where id=#{id} and status=2
+    </update>
+    
+    <!-- 查询所有的产品 -->
+    <select id="getProduct" parameterType="pd" resultType="pd">
+     select * from roll_product where roll_room_id=#{id} and status=2
+    </select>
+    
+    <!-- 更改产品状态 -->
+    <update id="updateProductStatus" parameterType="int">
+     update roll_product set status=4,date_updated=NOW() where id=#{id} and status=2
+    </update>
+    
+    <!-- 更改兑换券状态 -->
+    <select id="updateCoupon" parameterType="int">
+    update coupon set 
+		is_active=0
+		where is_num=#{product_trade_id}
+    </select>
+    
+    <!-- 更改product_trade状态 -->
+    <update id="updateProductTrade" parameterType="int">
+    update product_trade set status = 1,last_updated=NOW()
+		where status=7 and id=#{product_trade_id}
+    </update>
+    
+    <!-- 查询状态为2的房间 -->
+    <select id="getRoomListForTimer" parameterType="pd" resultType="pd">
+     select id from roll_room where status=2 and NOW()>= date_add(date_created, interval 10 day) and roll_time is null and roll_auto!=0;
+    </select>
+    
+    <!-- 显示产品 -->
+    <select id="showProductlistPage" parameterType="page" resultType="pd">
+    
+    select p.icon_url, p.name,p.market_hash_name as hashName,cast(
+			t.purchase_price AS DECIMAL (10, 2)
+		) AS price from roll_product r inner join product_trade t on r.product_trade_id=t.id
+    inner join product p on t.product_id=p.id where r.status!=4 and r.roll_room_id=#{pd.id}
+    
+    </select>
+    
+    <select id="getSteamList" resultType="pd">
+      select DISTINCT steam_uid from roll_power_grant
+    </select>
+    
+    
+    <!-- 查询商品销售数量 -->
+    <select id="getSaleCount" resultType="int">
+    	select count(1) from steam_user su INNER JOIN `order` o on  su.steam_uid=o.seller_steam_uid		
+			where  o.status!=9 and o.payment_method!=7
+    </select>
+    
+    <!-- 查询商品入库数量 -->
+    <select id="getStockInCount" resultType="int">
+    	SELECT
+				count(0)
+			FROM
+			product_trade pt
+			WHERE  pt.`status` in (0,1,2,3,6,10,18) 
+    </select>
+    
+    
+     <!-- 查询商品出库数量 -->
+    <select id="getStockOutCount" resultType="int">
+    
+		SELECT
+			count(0)
+		FROM
+			product_trade pt,steam_user su
+		WHERE
+		su.steam_uid = pt.steam_uid
+		AND pt.`status`  in(1,5,9,11)
+    </select>
+    
+    
+    <!-- 查询钱包明细数量 -->
+    <select id="getWalletCount" resultType="int">
+    	 select count(*) as walletCount
+		FROM
+			all_cash_flow a left join wallet w on a.from_wallet_id=w.id
+			left join wallet w1 on a.to_wallet_id=w1.id
+    </select>
+    
+    
+    <!-- 查询房间的前3名房间价值之和 -->
+    <select id="valueList" parameterType="pd" resultType="pd">
+    	select * from 
+		(select m.steam_uid,m.user_id,sum(m.pool_price) as price from roll_room m, roll_power_grant r where  r.steam_uid=m.steam_uid
+    	and m.status in(2,3) and (r.value is null or r.value='迪拜土豪' or r.value='') and r.roll_power_id=5
+    	and m.date_created>=#{day_anlyze_start} and m.date_created &lt;#{day_anlyze_stop}
+    	group by r.steam_uid 
+		union select m.steam_uid,m.user_id,sum(m.pool_price) as price from roll_room m 
+    	where m.date_created>=#{day_anlyze_start} and m.date_created &lt;#{day_anlyze_stop}
+		and m.steam_uid not in (select DISTINCT steam_uid from roll_power_grant) group by m.steam_uid ) a order by price desc limit 0,3		
+    </select>
+    
+    <!-- 清除所有的土豪标签 -->
+    <update id="updateValue">
+      	update roll_power_grant set value=null where roll_power_id=5 and value='迪拜土豪'
+    </update>
+    
+    <!-- 给新的排行添加迪拜土豪标签 -->
+    <update id="addValue" parameterType="pd">
+     	update roll_power_grant set value='迪拜土豪' where roll_power_id=5 and steam_uid=#{steam_uid} 
+    </update>
+    
+    <select id="getGrantBySteam" parameterType="pd" resultType="pd">
+    	 select * from roll_power_grant where steam_uid=#{steam_uid} and roll_power_id=5
+    </select>
+    
+    <insert id="addgrant" parameterType="pd">
+    	insert into roll_power_grant(steam_uid,date_created,date_updated,status,roll_power_id,user_id,value)
+    	values(#{steam_uid},NOW(),NOW(),1,5,#{user_id},'迪拜土豪')
+    </insert>
+     
+    <select id="getProductTrade" resultType="int">
+    	select count(0) from product_trade
+    </select>
+</mapper>

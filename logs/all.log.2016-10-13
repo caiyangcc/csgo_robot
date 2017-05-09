@@ -1,0 +1,180 @@
+2016-10-13 18:19:31,275  INFO AppController:48 - Starting AppController on SO032YZZVSMQVSS with PID 8220 (D:\eclipsejavaee\csgo_robot\target\classes started by Administrator in D:\eclipsejavaee\csgo_robot)
+  2016-10-13 18:19:31,278  INFO AppController:666 - No active profile set, falling back to default profiles: default
+  2016-10-13 18:19:31,354  INFO AnnotationConfigEmbeddedWebApplicationContext:578 - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@58c1670b: startup date [Thu Oct 13 18:19:31 CST 2016]; root of context hierarchy
+  2016-10-13 18:19:31,640  INFO Version:17 - HV000001: Hibernate Validator 5.2.2.Final
+  2016-10-13 18:19:32,105  INFO XmlBeanDefinitionReader:317 - Loading XML bean definitions from class path resource [applicationContext.xml]
+  2016-10-13 18:19:32,257  INFO DefaultListableBeanFactory:839 - Overriding bean definition for bean 'beanNameViewResolver' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+  2016-10-13 18:19:32,292  WARN ClassPathMapperScanner:167 - No MyBatis mapper was found in '[com.softisland]' package. Please check your configuration.
+  2016-10-13 18:19:32,609  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:328 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$9751c4d3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+  2016-10-13 18:19:33,254  INFO TomcatEmbeddedServletContainer:81 - Tomcat initialized with port(s): 8085 (http)
+  2016-10-13 18:19:33,267  INFO StandardService:180 - Starting service Tomcat
+  2016-10-13 18:19:33,269  INFO StandardEngine:180 - Starting Servlet Engine: Apache Tomcat/8.0.30
+  2016-10-13 18:19:33,460  INFO TldScanner:180 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+  2016-10-13 18:19:33,462  INFO [/]:180 - Initializing Spring embedded WebApplicationContext
+  2016-10-13 18:19:33,462  INFO ContextLoader:272 - Root WebApplicationContext: initialization completed in 2110 ms
+  2016-10-13 18:19:33,800  INFO ServletRegistrationBean:189 - Mapping servlet: 'dispatcherServlet' to [/]
+  2016-10-13 18:19:33,804  INFO FilterRegistrationBean:258 - Mapping filter: 'characterEncodingFilter' to: [/*]
+  2016-10-13 18:19:33,805  INFO FilterRegistrationBean:258 - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+  2016-10-13 18:19:33,805  INFO FilterRegistrationBean:258 - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+  2016-10-13 18:19:33,805  INFO FilterRegistrationBean:258 - Mapping filter: 'requestContextFilter' to: [/*]
+  2016-10-13 18:19:34,628  INFO StdSchedulerFactory:1184 - Using default implementation for ThreadExecutor
+  2016-10-13 18:19:34,638  INFO SchedulerSignalerImpl:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+  2016-10-13 18:19:34,639  INFO QuartzScheduler:240 - Quartz Scheduler v.2.2.1 created.
+  2016-10-13 18:19:34,639  INFO RAMJobStore:155 - RAMJobStore initialized.
+  2016-10-13 18:19:34,640  INFO QuartzScheduler:305 - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'startQuertz' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+  2016-10-13 18:19:34,640  INFO StdSchedulerFactory:1339 - Quartz scheduler 'startQuertz' initialized from an externally provided properties instance.
+  2016-10-13 18:19:34,640  INFO StdSchedulerFactory:1343 - Quartz scheduler version: 2.2.1
+  2016-10-13 18:19:34,641  INFO QuartzScheduler:2311 - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@f8f56b9
+  2016-10-13 18:19:34,812  INFO RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@58c1670b: startup date [Thu Oct 13 18:19:31 CST 2016]; root of context hierarchy
+  2016-10-13 18:19:34,866  INFO RequestMappingHandlerMapping:527 - Mapped "{[/message]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.message()
+  2016-10-13 18:19:34,867  INFO RequestMappingHandlerMapping:527 - Mapped "{[/hello]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.Hello()
+  2016-10-13 18:19:34,867  INFO RequestMappingHandlerMapping:527 - Mapped "{[/defaultPage]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.defaultPage()
+  2016-10-13 18:19:34,867  INFO RequestMappingHandlerMapping:527 - Mapped "{[/webSet]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.webSet()
+  2016-10-13 18:19:34,869  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+  2016-10-13 18:19:34,869  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+  2016-10-13 18:19:34,893  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-10-13 18:19:34,894  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-10-13 18:19:34,925  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-10-13 18:19:35,212  INFO AnnotationMBeanExporter:431 - Registering beans for JMX exposure on startup
+  2016-10-13 18:19:35,213  INFO AnnotationMBeanExporter:912 - Bean with name 'DataSource' has been autodetected for JMX exposure
+  2016-10-13 18:19:35,213  INFO AnnotationMBeanExporter:912 - Bean with name 'slaveDataSource' has been autodetected for JMX exposure
+  2016-10-13 18:19:35,217  INFO AnnotationMBeanExporter:667 - Located MBean 'slaveDataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=slaveDataSource,type=DruidDataSource]
+  2016-10-13 18:19:35,219  INFO AnnotationMBeanExporter:667 - Located MBean 'DataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=DataSource,type=DruidDataSource]
+  2016-10-13 18:19:35,222  INFO DefaultLifecycleProcessor:341 - Starting beans in phase 2147483647
+  2016-10-13 18:19:35,222  INFO SchedulerFactoryBean:647 - Starting Quartz Scheduler now
+  2016-10-13 18:19:35,222  INFO QuartzScheduler:575 - Scheduler startQuertz_$_NON_CLUSTERED started.
+  2016-10-13 18:19:35,245  INFO Http11NioProtocol:180 - Initializing ProtocolHandler ["http-nio-8085"]
+  2016-10-13 18:19:35,250  INFO Http11NioProtocol:180 - Starting ProtocolHandler ["http-nio-8085"]
+  2016-10-13 18:19:35,260  INFO NioSelectorPool:180 - Using a shared selector for servlet write/read
+  2016-10-13 18:19:35,281  INFO TomcatEmbeddedServletContainer:162 - Tomcat started on port(s): 8085 (http)
+  2016-10-13 18:19:35,284  INFO AppController:57 - Started AppController in 4.362 seconds (JVM running for 4.73)
+  2016-10-13 18:20:30,020  INFO SellerRankingScheduleController:28 - 开始卖家排行榜报表
+  2016-10-13 18:20:31,125  INFO DruidDataSource:655 - {dataSource-1} inited
+  2016-10-13 18:30:00,003  INFO ReportScheduleController:47 - 开始分析2层2016-10-12的数据报表。开始时间为：1476354600003
+  2016-10-13 18:30:00,041  INFO DruidDataSource:655 - {dataSource-2} inited
+  2016-10-13 18:35:21,280  INFO AppController:48 - Starting AppController on SO032YZZVSMQVSS with PID 9028 (D:\eclipsejavaee\csgo_robot\target\classes started by Administrator in D:\eclipsejavaee\csgo_robot)
+  2016-10-13 18:35:21,282  INFO AppController:666 - No active profile set, falling back to default profiles: default
+  2016-10-13 18:35:21,317  INFO AnnotationConfigEmbeddedWebApplicationContext:578 - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@58c1670b: startup date [Thu Oct 13 18:35:21 CST 2016]; root of context hierarchy
+  2016-10-13 18:35:21,438  INFO Version:17 - HV000001: Hibernate Validator 5.2.2.Final
+  2016-10-13 18:35:21,728  INFO XmlBeanDefinitionReader:317 - Loading XML bean definitions from class path resource [applicationContext.xml]
+  2016-10-13 18:35:21,855  INFO DefaultListableBeanFactory:839 - Overriding bean definition for bean 'beanNameViewResolver' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+  2016-10-13 18:35:21,895  WARN ClassPathMapperScanner:167 - No MyBatis mapper was found in '[com.softisland]' package. Please check your configuration.
+  2016-10-13 18:35:22,165  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:328 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$1e9eed5f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+  2016-10-13 18:35:22,749  INFO TomcatEmbeddedServletContainer:81 - Tomcat initialized with port(s): 8085 (http)
+  2016-10-13 18:35:22,758  INFO StandardService:180 - Starting service Tomcat
+  2016-10-13 18:35:22,759  INFO StandardEngine:180 - Starting Servlet Engine: Apache Tomcat/8.0.30
+  2016-10-13 18:35:22,900  INFO TldScanner:180 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+  2016-10-13 18:35:22,903  INFO [/]:180 - Initializing Spring embedded WebApplicationContext
+  2016-10-13 18:35:22,903  INFO ContextLoader:272 - Root WebApplicationContext: initialization completed in 1588 ms
+  2016-10-13 18:35:23,266  INFO ServletRegistrationBean:189 - Mapping servlet: 'dispatcherServlet' to [/]
+  2016-10-13 18:35:23,270  INFO FilterRegistrationBean:258 - Mapping filter: 'characterEncodingFilter' to: [/*]
+  2016-10-13 18:35:23,271  INFO FilterRegistrationBean:258 - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+  2016-10-13 18:35:23,271  INFO FilterRegistrationBean:258 - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+  2016-10-13 18:35:23,272  INFO FilterRegistrationBean:258 - Mapping filter: 'requestContextFilter' to: [/*]
+  2016-10-13 18:35:23,978  INFO StdSchedulerFactory:1184 - Using default implementation for ThreadExecutor
+  2016-10-13 18:35:23,991  INFO SchedulerSignalerImpl:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+  2016-10-13 18:35:23,992  INFO QuartzScheduler:240 - Quartz Scheduler v.2.2.1 created.
+  2016-10-13 18:35:23,993  INFO RAMJobStore:155 - RAMJobStore initialized.
+  2016-10-13 18:35:23,994  INFO QuartzScheduler:305 - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'startQuertz' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+  2016-10-13 18:35:23,994  INFO StdSchedulerFactory:1339 - Quartz scheduler 'startQuertz' initialized from an externally provided properties instance.
+  2016-10-13 18:35:23,994  INFO StdSchedulerFactory:1343 - Quartz scheduler version: 2.2.1
+  2016-10-13 18:35:23,995  INFO QuartzScheduler:2311 - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@4cdd2c73
+  2016-10-13 18:35:24,155  INFO RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@58c1670b: startup date [Thu Oct 13 18:35:21 CST 2016]; root of context hierarchy
+  2016-10-13 18:35:24,207  INFO RequestMappingHandlerMapping:527 - Mapped "{[/message]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.message()
+  2016-10-13 18:35:24,207  INFO RequestMappingHandlerMapping:527 - Mapped "{[/hello]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.Hello()
+  2016-10-13 18:35:24,208  INFO RequestMappingHandlerMapping:527 - Mapped "{[/defaultPage]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.defaultPage()
+  2016-10-13 18:35:24,208  INFO RequestMappingHandlerMapping:527 - Mapped "{[/webSet]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.webSet()
+  2016-10-13 18:35:24,209  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+  2016-10-13 18:35:24,210  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+  2016-10-13 18:35:24,232  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-10-13 18:35:24,233  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-10-13 18:35:24,390  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-10-13 18:35:24,514  INFO AnnotationMBeanExporter:431 - Registering beans for JMX exposure on startup
+  2016-10-13 18:35:24,515  INFO AnnotationMBeanExporter:912 - Bean with name 'DataSource' has been autodetected for JMX exposure
+  2016-10-13 18:35:24,516  INFO AnnotationMBeanExporter:912 - Bean with name 'slaveDataSource' has been autodetected for JMX exposure
+  2016-10-13 18:35:24,519  INFO AnnotationMBeanExporter:667 - Located MBean 'slaveDataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=slaveDataSource,type=DruidDataSource]
+  2016-10-13 18:35:24,521  INFO AnnotationMBeanExporter:667 - Located MBean 'DataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=DataSource,type=DruidDataSource]
+  2016-10-13 18:35:24,524  INFO DefaultLifecycleProcessor:341 - Starting beans in phase 2147483647
+  2016-10-13 18:35:24,524  INFO SchedulerFactoryBean:647 - Starting Quartz Scheduler now
+  2016-10-13 18:35:24,524  INFO QuartzScheduler:575 - Scheduler startQuertz_$_NON_CLUSTERED started.
+  2016-10-13 18:35:24,544  INFO Http11NioProtocol:180 - Initializing ProtocolHandler ["http-nio-8085"]
+  2016-10-13 18:35:24,549  INFO Http11NioProtocol:180 - Starting ProtocolHandler ["http-nio-8085"]
+  2016-10-13 18:35:24,559  INFO NioSelectorPool:180 - Using a shared selector for servlet write/read
+  2016-10-13 18:35:24,578  INFO TomcatEmbeddedServletContainer:162 - Tomcat started on port(s): 8085 (http)
+  2016-10-13 18:35:24,581  INFO AppController:57 - Started AppController in 3.499 seconds (JVM running for 3.752)
+  2016-10-13 18:36:30,019  INFO SellerRankingScheduleController:28 - 开始卖家排行榜报表
+  2016-10-13 18:36:30,828  INFO DruidDataSource:655 - {dataSource-1} inited
+  2016-10-13 18:42:57,689  INFO AppController:48 - Starting AppController on SO032YZZVSMQVSS with PID 7036 (D:\eclipsejavaee\csgo_robot\target\classes started by Administrator in D:\eclipsejavaee\csgo_robot)
+  2016-10-13 18:42:57,691  INFO AppController:666 - No active profile set, falling back to default profiles: default
+  2016-10-13 18:42:57,736  INFO AnnotationConfigEmbeddedWebApplicationContext:578 - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@36b4fe2a: startup date [Thu Oct 13 18:42:57 CST 2016]; root of context hierarchy
+  2016-10-13 18:42:57,875  INFO Version:17 - HV000001: Hibernate Validator 5.2.2.Final
+  2016-10-13 18:42:58,221  INFO XmlBeanDefinitionReader:317 - Loading XML bean definitions from class path resource [applicationContext.xml]
+  2016-10-13 18:42:58,367  INFO DefaultListableBeanFactory:839 - Overriding bean definition for bean 'beanNameViewResolver' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+  2016-10-13 18:42:58,386  WARN ClassPathMapperScanner:167 - No MyBatis mapper was found in '[com.softisland]' package. Please check your configuration.
+  2016-10-13 18:42:58,735  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:328 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$bd8afa2a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+  2016-10-13 18:42:59,372  INFO TomcatEmbeddedServletContainer:81 - Tomcat initialized with port(s): 8085 (http)
+  2016-10-13 18:42:59,385  INFO StandardService:180 - Starting service Tomcat
+  2016-10-13 18:42:59,386  INFO StandardEngine:180 - Starting Servlet Engine: Apache Tomcat/8.0.30
+  2016-10-13 18:42:59,561  INFO TldScanner:180 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+  2016-10-13 18:42:59,564  INFO [/]:180 - Initializing Spring embedded WebApplicationContext
+  2016-10-13 18:42:59,565  INFO ContextLoader:272 - Root WebApplicationContext: initialization completed in 1832 ms
+  2016-10-13 18:42:59,977  INFO ServletRegistrationBean:189 - Mapping servlet: 'dispatcherServlet' to [/]
+  2016-10-13 18:42:59,981  INFO FilterRegistrationBean:258 - Mapping filter: 'characterEncodingFilter' to: [/*]
+  2016-10-13 18:42:59,982  INFO FilterRegistrationBean:258 - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+  2016-10-13 18:42:59,982  INFO FilterRegistrationBean:258 - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+  2016-10-13 18:42:59,983  INFO FilterRegistrationBean:258 - Mapping filter: 'requestContextFilter' to: [/*]
+  2016-10-13 18:43:00,823  INFO StdSchedulerFactory:1184 - Using default implementation for ThreadExecutor
+  2016-10-13 18:43:00,841  INFO SchedulerSignalerImpl:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+  2016-10-13 18:43:00,843  INFO QuartzScheduler:240 - Quartz Scheduler v.2.2.1 created.
+  2016-10-13 18:43:00,845  INFO RAMJobStore:155 - RAMJobStore initialized.
+  2016-10-13 18:43:00,847  INFO QuartzScheduler:305 - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'startQuertz' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+  2016-10-13 18:43:00,847  INFO StdSchedulerFactory:1339 - Quartz scheduler 'startQuertz' initialized from an externally provided properties instance.
+  2016-10-13 18:43:00,847  INFO StdSchedulerFactory:1343 - Quartz scheduler version: 2.2.1
+  2016-10-13 18:43:00,849  INFO QuartzScheduler:2311 - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@6a756082
+  2016-10-13 18:43:01,056  INFO RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@36b4fe2a: startup date [Thu Oct 13 18:42:57 CST 2016]; root of context hierarchy
+  2016-10-13 18:43:01,118  INFO RequestMappingHandlerMapping:527 - Mapped "{[/message]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.message()
+  2016-10-13 18:43:01,119  INFO RequestMappingHandlerMapping:527 - Mapped "{[/hello]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.Hello()
+  2016-10-13 18:43:01,120  INFO RequestMappingHandlerMapping:527 - Mapped "{[/defaultPage]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.defaultPage()
+  2016-10-13 18:43:01,120  INFO RequestMappingHandlerMapping:527 - Mapped "{[/webSet]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.webSet()
+  2016-10-13 18:43:01,122  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+  2016-10-13 18:43:01,123  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+  2016-10-13 18:43:01,173  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-10-13 18:43:01,174  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-10-13 18:43:01,217  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-10-13 18:43:01,464  INFO AnnotationMBeanExporter:431 - Registering beans for JMX exposure on startup
+  2016-10-13 18:43:01,465  INFO AnnotationMBeanExporter:912 - Bean with name 'DataSource' has been autodetected for JMX exposure
+  2016-10-13 18:43:01,465  INFO AnnotationMBeanExporter:912 - Bean with name 'slaveDataSource' has been autodetected for JMX exposure
+  2016-10-13 18:43:01,469  INFO AnnotationMBeanExporter:667 - Located MBean 'slaveDataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=slaveDataSource,type=DruidDataSource]
+  2016-10-13 18:43:01,471  INFO AnnotationMBeanExporter:667 - Located MBean 'DataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=DataSource,type=DruidDataSource]
+  2016-10-13 18:43:01,474  INFO DefaultLifecycleProcessor:341 - Starting beans in phase 2147483647
+  2016-10-13 18:43:01,474  INFO SchedulerFactoryBean:647 - Starting Quartz Scheduler now
+  2016-10-13 18:43:01,475  INFO QuartzScheduler:575 - Scheduler startQuertz_$_NON_CLUSTERED started.
+  2016-10-13 18:43:01,499  INFO Http11NioProtocol:180 - Initializing ProtocolHandler ["http-nio-8085"]
+  2016-10-13 18:43:01,506  INFO Http11NioProtocol:180 - Starting ProtocolHandler ["http-nio-8085"]
+  2016-10-13 18:43:01,516  INFO NioSelectorPool:180 - Using a shared selector for servlet write/read
+  2016-10-13 18:43:01,542  INFO TomcatEmbeddedServletContainer:162 - Tomcat started on port(s): 8085 (http)
+  2016-10-13 18:43:01,546  INFO AppController:57 - Started AppController in 4.102 seconds (JVM running for 4.43)
+  2016-10-13 18:43:30,025  INFO SellerRankingScheduleController:28 - 开始卖家排行榜报表
+  2016-10-13 18:43:35,914  INFO DruidDataSource:655 - {dataSource-1} inited
+  

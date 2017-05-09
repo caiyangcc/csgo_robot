@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductMapper">
+
+	<select id="productlistPage" parameterType="Page" resultType="pd">
+		SELECT
+			p.id AS id,
+			po.pay_order_num as orderNum,
+			pt.steam_uid AS steamId,
+			pt.descriptions as descriptions,
+			p.`name` AS `name`,
+			p.product_category_id AS category,
+			p.product_type_id AS type,
+			su.personaname AS steamName,
+			cast(
+				pt.purchase_price AS DECIMAL (10, 2)
+			) AS price,
+			(
+				CASE pt.date_created
+				WHEN '0000-00-00 00:00:00' THEN
+					'1970-01-01 00:00:00'
+				WHEN pt.date_created THEN
+					pt.date_created
+				END
+			) AS createTime,
+			(
+				CASE pt.last_updated
+				WHEN '0000-00-00 00:00:00' THEN
+					'1970-01-01 00:00:00'
+				WHEN pt.last_updated THEN
+					pt.last_updated
+				END
+			) AS lastTime,
+			pt.id AS tradeId,
+			cast(
+				pt.unit_price AS DECIMAL (10, 2)
+			) AS unitPrice,
+			pt.`status` AS ptstatus,
+			pty.`name` AS typeName,
+			cast(
+				p.exterior_wear AS DECIMAL (10, 8)
+			) AS exteriorWear,
+			pts1.`name` AS exteriorName,
+			pts2.`name` AS rarityName,
+			mid.current_price AS currentPrice,
+			p.market_hash_name AS hashName
+		FROM
+			product_trade pt
+		LEFT JOIN product p ON pt.product_id = p.id
+		LEFT JOIN steam_user su ON pt.steam_uid = su.steam_uid
+		JOIN product_type pty
+		LEFT JOIN payment_trade_order pto on pt.id = pto.ptid
+		LEFT JOIN payment_order po on pto.poid=po.id
+		LEFT JOIN product_tags pts1 ON pts1.id = p.tags_exterior_id
+		LEFT JOIN product_tags pts2 ON pts2.id = p.tags_rarity_id
+		JOIN (
+			SELECT
+				sai.current_price,
+				sa.market_name,
+				sai.last_updated,
+				MAX(sai.last_updated)
+			FROM
+				steam_analyst sa
+			JOIN steam_analyst_item sai
+			WHERE
+				sa.id = sai.steam_analyst_id
+			GROUP BY
+				sa.market_name
+		) mid
+		WHERE
+			pty.id = p.product_type_id
+		AND su.user_type = 4
+		AND mid.market_name = p.market_hash_name
+		AND pt.`status` IN (0,1,2,10)
+		<if test="pd.steamId!=null and pd.steamId!='' ">
+		    and pt.steam_uid = #{pd.steamId}
+		</if>
+		<if test="pd.unitPrice!=null and pd.unitPrice!='' ">
+		    and pt.unit_price = #{pd.unitPrice}
+		</if>
+		<if test="pd.saleStatus!=null and pd.saleStatus!='' and pd.saleStatus!='-1' and pd.saleStatus!='-2'">
+		    and  pt.`status` = #{pd.saleStatus}
+		</if>
+		<if test="pd.exteriorName!=null and pd.exteriorName!='' and pd.exteriorName!='-1' and pd.exteriorName!='-2'">
+		    and  pts1.`name` = #{pd.exteriorName}
+		</if>
+		<if test="pd.rarityName!=null and pd.rarityName!='' and pd.rarityName!='-1' and pd.rarityName!='-2'">
+		    and  pts2.`name` = #{pd.rarityName}
+		</if>							
+		<if test="pd.category!=null and pd.category!='' and pd.category!='-1' and pd.category!='-2'">
+		    and p.product_category_id = #{pd.category}
+		</if>
+		<if test="pd.weponType!=null and pd.weponType!='' and pd.weponType!='-1' and pd.weponType!='-2'">
+		    and p.product_type_id = #{pd.weponType}
+		</if>				
+        <if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!='' and pd.lastLoginStart!=null and pd.lastLoginStart!=''">
+            and pt.date_created between #{pd.lastLoginStart} and #{pd.lastLoginEnd}
+        </if>
+        <if test="pd.lastLoginEnd1!=null and pd.lastLoginEnd1!='' and pd.lastLoginStart1!=null and pd.lastLoginStart1!=''">
+            and pt.last_updated between #{pd.lastLoginStart1} and #{pd.lastLoginEnd1}
+        </if>
+        <if test="pd.exname!=null and pd.exname!=''">
+        	and p.name  like CONCAT(CONCAT('%',#{pd.exname}),'%')
+        </if>	
+		ORDER BY
+			pt.date_created desc,mid.current_price desc
+	</select>
+	<select id="productlistPage1" parameterType="Page" resultType="pd">
+	SELECT
+		p.id AS id,
+		pt.steam_uid AS steamId,
+		pt.bots_steam_uid as botId,
+		po.pay_order_num as orderNum,
+		pt.descriptions as descriptions,
+		p.`name` AS `name`,
+		p.product_category_id AS category,
+		p.product_type_id AS type,
+		su.personaname AS steamName,
+		cast(
+			pt.purchase_price AS DECIMAL (10, 2)
+		) AS price,
+		(
+			CASE pt.date_created
+			WHEN '0000-00-00 00:00:00' THEN
+				'1970-01-01 00:00:00'
+			WHEN pt.date_created THEN
+				pt.date_created
+			END
+		) AS createTime,
+		(
+			CASE pt.last_updated
+			WHEN '0000-00-00 00:00:00' THEN
+				'1970-01-01 00:00:00'
+			WHEN pt.last_updated THEN
+				pt.last_updated
+			END
+		) AS lastTime,
+		pt.id AS tradeId,
+		cast(
+			pt.unit_price AS DECIMAL (10, 2)
+		) AS unitPrice,
+		pt.`status` AS ptstatus,
+		pty.`name` AS typeName,
+		pts1.`name` AS exteriorName,
+		pts2.`name` AS rarityName,
+		<!-- mid.current_price AS currentPrice, -->
+		p.market_hash_name AS hashName
+	FROM
+		product_trade pt
+	LEFT JOIN product p ON pt.product_id = p.id
+	LEFT JOIN steam_user su ON pt.steam_uid = su.steam_uid
+	LEFT JOIN product_type pty ON pty.id = p.product_type_id
+	LEFT JOIN payment_trade_order pto on pt.id = pto.ptid
+	LEFT JOIN payment_order po on pto.poid=po.id
+	LEFT JOIN product_tags pts1 ON pts1.id = p.tags_exterior_id
+	LEFT JOIN product_tags pts2 ON pts2.id = p.tags_rarity_id
+<!-- 	JOIN (
+		SELECT
+			sai.current_price,
+			sa.market_name,
+			sai.last_updated,
+			MAX(sai.last_updated)
+		FROM
+			steam_analyst sa
+		JOIN steam_analyst_item sai
+		WHERE
+			sa.id = sai.steam_analyst_id
+		GROUP BY
+			sa.market_name
+	) mid -->
+	WHERE	
+	su.user_type in (4,5)
+	and pt.app_id=730
+	<!-- AND mid.market_name = p.market_hash_name -->
+	AND pt.`status` IN (0,1,2,3,6,7,8,10,60,61,62,63)
+		<if test="pd.steamId!=null and pd.steamId!='' ">
+		    and pt.steam_uid = #{pd.steamId}
+		</if>
+		<if test=" pd.orderNum!=null and pd.orderNum!='' ">
+		    and po.pay_order_num = #{pd.orderNum}
+		</if>
+		<if test="pd.check_type!=null and pd.check_type!='' and pd.check_type==2"> 	
+			and IFNULL(po.pay_order_num,'0') not in('20161015864活动采购','20161001571活动采购','20161111919','20161109409')
+		</if>
+		<if test="pd.unitPrice!=null and pd.unitPrice!='' ">
+		    and pt.unit_price = #{pd.unitPrice}
+		</if>
+		<if test="pd.kg!=0 and pd.kg!=null and pd.saleStatus!=null and pd.saleStatus!='' and pd.saleStatus!='-1' and pd.saleStatus!='-2'">
+		    and  pt.`status` = #{pd.saleStatus}
+		</if>
+		<if test="pd.kg!=0 and pd.kg!=null and pd.exteriorName!=null and pd.exteriorName!='' and pd.exteriorName!='-1' and pd.exteriorName!='-2'">
+		    and  pts1.`name` = #{pd.exteriorName}
+		</if>
+		<if test="pd.kg!=0 and pd.kg!=null and pd.rarityName!=null and pd.rarityName!='' and pd.rarityName!='-1' and pd.rarityName!='-2'">
+		    and  pts2.`name` = #{pd.rarityName}
+		</if>							
+		<if test="pd.kg!=0 and pd.kg!=null and pd.category!=null and pd.category!='' and pd.category!='-1' and pd.category!='-2'">
+		    and p.product_category_id = #{pd.category}
+		</if>
+		<if test="pd.kg!=0 and pd.kg!=null and pd.weponType!=null and pd.weponType!='' and pd.weponType!='-1' and pd.weponType!='-2'">
+		    and p.product_type_id = #{pd.weponType}
+		</if>				
+        <if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!='' and pd.lastLoginStart!=null and pd.lastLoginStart!=''">
+            and pt.date_created between #{pd.lastLoginStart} and #{pd.lastLoginEnd}
+        </if>
+        <if test="pd.lastLoginEnd1!=null and pd.lastLoginEnd1!='' and pd.lastLoginStart1!=null and pd.lastLoginStart1!=''">
+            and pt.last_updated between #{pd.lastLoginStart1} and #{pd.lastLoginEnd1}
+        </if>
+        <if test="pd.kg!=0 and pd.kg!=null and pd.employedbox!=null  and  pd.employedbox!=''"  >
+        	and pt.purchase_price='0'
+        </if>
+        <if test="pd.kg!=0 and pd.kg!=null and pd.exname!=null and pd.exname!=''">
+        	and p.name  like CONCAT(CONCAT('%',#{pd.exname}),'%')
+        </if> 	
+        <if test="pd.kg!=0 and pd.kg!=null and pd.tradeId!=null and pd.tradeId!=''">
+        	and pt.id = #{pd.tradeId}
+        </if> 
+        <if test="pd.kg!=0 and pd.kg!=null and pd.botId!=null and pd.botId!=''">
+        	and pt.bots_steam_uid = #{pd.botId}
+        </if> 
+			
+			<if test="pd.clomnName==null or pd.clomnName==''">
+		  	ORDER BY
+			pt.date_created desc,pt.id
+		</if>
+		
+		<if test="pd.clomnName!=null and pd.clomnName!=''">
+		   ORDER BY ${pd.clomnName}
+		</if>
+		<if test="pd.clomnSequence!=null and pd.clomnSequence!='' and pd.clomnSequence==0">
+		  desc
+		</if>
+		<if test="pd.clomnSequence!=null and pd.clomnSequence!='' and pd.clomnSequence==1">
+		  asc
+		</if>
+		
+	</select>	
+	<select id="productListByIds" parameterType="pd" resultType="pd">
+		SELECT
+			p.id AS id,
+			p.steam_uid AS steamId,
+			p.`name` AS `name`,
+			p.product_category_id AS category,
+			p.product_type_id AS type,
+			su.username AS steamName,
+			pt.purchase_price AS price,
+		    p.last_updated as createTime,
+		    pt.id AS tradeId
+		FROM
+			product_trade pt 
+		LEFT JOIN product p ON pt.product_id = p.id
+		JOIN steam_user su
+		WHERE
+			pt.steam_uid = su.steam_uid
+		and pt.`status` = 0	
+        and p.id in (${ids})	
+		ORDER BY
+			p.id
+	</select>
+	<select id="productTradeListByIds" parameterType="pd" resultType="pd">
+			SELECT
+				pt.id AS id,
+				p.market_hash_name AS hashname,
+				pt.purchase_price AS buyPrice,
+				pt.unit_price AS salePrice,
+				pt.last_updated as updateTime
+			FROM
+				product_trade pt,
+				product p
+			WHERE
+				p.id = pt.product_id
+			AND pt.id IN (${id})
+	</select>
+	
+	<select id="productTradeListByIdsOne" parameterType="pd" resultType="pd">
+			SELECT
+				pt.id AS id,
+				pt.unit_price AS salePrice,
+				cast(
+					pt.purchase_price AS DECIMAL (10, 2)
+				) AS price,
+				p.market_hash_name AS hashName,
+				pt.last_updated as updateTime
+			FROM
+				product_trade pt,
+				product p
+			WHERE
+				p.id = pt.product_id
+			AND pt.status in (1,2,60,61)
+			AND pt.id IN (${ids})
+	</select>
+	
+	<select id="productTradeListByIdsTwo" parameterType="pd" resultType="pd">
+			SELECT
+				pt.id AS id,
+				cast(pt.purchase_price AS DECIMAL (10, 2)) AS buyPrice,
+				pt.unit_price AS salePrice,
+				pt.last_updated as updateTime
+			FROM
+				product_trade pt,
+				product p
+			WHERE
+				p.id = pt.product_id
+			AND pt.id IN (${ids})
+	</select>
+	<select id="queryProductOnByIds" parameterType="pd" resultType="pd">
+			SELECT
+				pt.id AS id,
+				pt.status AS status,
+				pt.last_updated as updateTime
+			FROM
+				product_trade pt
+			WHERE
+			pt.status=2
+			AND pt.id IN (${ids})
+	</select>
+	
+	<select id="queryProductDownByIds" parameterType="pd" resultType="pd">
+			SELECT
+				pt.id AS id,
+				pt.steam_uid as steamId,
+				pt.steam_pid as pid,
+				cast(
+					pt.unit_price AS DECIMAL (10, 2)
+				) AS sPrice,
+				pt.bots_steam_uid as botId,
+				pt.status AS status,
+				pt.last_updated as updateTime
+			FROM
+				product_trade pt
+			WHERE
+			pt.status=1
+			AND pt.id IN (${ids})
+	</select>
+	
+	<select id="queryProductDownByIdsEdit" parameterType="pd" resultType="pd">
+			SELECT
+				pt.id AS id,
+				pt.steam_uid as steamId,
+				pt.steam_pid as pid,
+				pt.bots_steam_uid as botId,
+				pt.status AS status,
+				pt.last_updated as updateTime
+			FROM
+				product_trade pt
+			WHERE pt.status in (1,63)
+			AND pt.id IN (${ids})
+	</select>
+	
+	<select id="rateUsdCny" parameterType="pd" resultType="pd">
+			SELECT
+				rate,
+				max(last_updated)
+			FROM
+				exchange_rates
+			WHERE
+				target_id = 2
+			AND source_id = 1
+	</select>			
+	<select id="refreshPid" parameterType="Page" resultType="pd">
+			SELECT
+				pt.id AS id,
+				pt.steam_pid AS steamPid,
+				pt.bots_steam_uid AS botsSteamUid,
+				pt.`status` AS `status`,
+				pt.last_updated AS lastUpdate,
+			  pt.title as title,
+			  pt.descriptions as descriptions
+			FROM
+				product_trade pt
+			WHERE
+				pt.steam_pid = 0
+	</select>			
+	<select id="singlelistPage" parameterType="Page" resultType="pd">
+			SELECT
+				p.id AS id,
+				pt.id AS ptid,
+				pt.steam_oid AS oid,
+				pt.steam_uid AS steamId,
+				p.`name` AS `name`,
+				p.product_category_id AS category,
+				p.product_type_id AS type,
+				su.username AS steamName,
+				pt.unit_price AS price,
+				pt.date_created AS createTime,
+				pt.id AS tradeId,
+				pt.bots_steam_uid AS house,
+				su.user_type AS userType,
+	            pt.`status` as ptstatus,
+	            pt.descriptions AS exteriorWear,
+	            pty.`name` AS typeName,
+	            pc.`name` AS categoryName,
+	            p.app_id as gameType
+			FROM
+			product_trade pt
+			LEFT JOIN product p ON p.id = pt.product_id
+			LEFT JOIN steam_user su ON su.steam_uid = pt.steam_uid
+	    	LEFT JOIN product_type pty ON pty.id=p.product_type_id
+	    	LEFT JOIN product_category pc ON pc.id=p.product_category_id
+			WHERE  pt.`status` in (0,1,2,3,6,10,18)
+		<if test="pd.steamId!=null and pd.steamId!=''">
+		    and pt.steam_uid = #{pd.steamId}
+		</if>
+		<if test="pd.oId!=null and pd.oId!=''">
+		    and pt.steam_oid = #{pd.oId}
+		</if>
+		<if test="pd.ptId!=null and pd.ptId!=''">
+		    and pt.id = #{pd.ptId}
+		</if>
+		<if test="pd.name!=null and pd.name!=''">
+		and p.name like CONCAT(CONCAT('%',#{pd.name}),'%')
+		</if>
+		<if test="pd.gameType!=null and pd.gameType!='' and pd.gameType!='-1' and pd.gameType!='-2'">
+		    and p.app_id = #{pd.gameType}
+		</if>
+		<if test="pd.category!=null and pd.category!='' and pd.category!='-1' and pd.category!='-2'">
+		    and p.product_category_id = #{pd.category}
+		</if>
+		<if test="pd.warehouseType!=null and pd.warehouseType!='' and pd.warehouseType!='-1' and pd.warehouseType!='-2'">
+		    and pt.`status` = #{pd.warehouseType}
+		</if>		
+		<if test="pd.userType!=null and pd.userType!='' and pd.userType!='-1' and pd.userType!='-2'">
+		    and su.user_type = #{pd.userType}
+		</if>	
+		<if test="pd.type!=null and pd.type!=''  and pd.type!='-1' and pd.type!='-2'">
+		    and p.product_type_id = #{pd.type}
+		</if>				
+        <if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!='' and pd.lastLoginStart!=null and pd.lastLoginStart!=''">
+            and pt.date_created between #{pd.lastLoginStart} and #{pd.lastLoginEnd}
+        </if>		
+		
+		<if test="pd.clomnName==null or pd.clomnName==''">
+		  ORDER BY
+			pt.date_created desc
+		</if>
+		
+		<if test="pd.clomnName!=null and pd.clomnName!=''">
+		  ORDER BY pt.${pd.clomnName}
+		</if>
+		<if test="pd.clomnSequence!=null and pd.clomnSequence!='' and pd.clomnSequence==0">
+		  desc
+		</if>
+		<if test="pd.clomnSequence!=null and pd.clomnSequence!='' and pd.clomnSequence==1">
+		  asc
+		</if>
+		
+	</select>
+	<select id="batlistPage" parameterType="Page" resultType="pd">
+		SELECT
+			pgs.id AS id,
+			pgs.title AS `name`,
+			pgs.unit_price AS price,
+			pgs.date_added AS createTime,
+			count(pt.group_id) AS num,
+			su.username AS steamName,
+			su.user_type AS userType,
+			pt.id AS tradeId
+		FROM
+			product_trade pt
+		JOIN product_group_sales pgs
+		JOIN steam_user su
+		WHERE
+			pgs.id = pt.group_id
+		AND su.steam_uid = pt.steam_uid
+		AND pt.group_id != 0
+		<if test="pd.steamId!=null and pd.steamId!=''">
+		    and pt.steam_uid = #{pd.steamId}
+		</if>
+		<if test="pd.steamName!=null and pd.steamName!=''">
+		    and su.username like CONCAT(CONCAT('%',#{pd.steamName}),'%')
+		</if>
+		<if test="pd.userType!=null and pd.userType!='' and pd.userType!='-1' and pd.userType!='-2'">
+		    and su.user_type = #{pd.userType}
+		</if>
+		<if test="pd.packageName!=null and pd.packageName!=''">
+		    and pgs.title like CONCAT(CONCAT('%',#{pd.packageName}),'%')
+		</if>					
+
+        <if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!='' and pd.lastLoginStart!=null and pd.lastLoginStart!=''">
+            and pgs.date_added between #{pd.lastLoginStart} and #{pd.lastLoginEnd}
+        </if>		
+		GROUP BY
+			pt.group_id
+		ORDER BY
+			pgs.date_added
+	</select>	
+	<select id="singleProductDetail" parameterType="pd" resultType="pd">
+		SELECT
+			p.id AS id,
+			pt.steam_uid AS steamId,
+			p.`name` AS `name`,
+			p.product_category_id AS category,
+			pc.`name` AS categoryName,
+			p.product_type_id AS type,
+			pte.`name` AS typeName,
+			su.username AS steamName,
+			cast(
+				pt.unit_price AS DECIMAL (10, 2)
+			) AS salePrice,
+		  	cast(
+				pt.purchase_price AS DECIMAL (10, 2)
+				) AS price,
+			p.last_updated AS createTime,
+		  su.fee_rate as singleFee,
+			pt.id AS tradeId,
+			pt.bots_steam_uid AS house,
+			su.user_type AS userType,
+		  p.descriptions as descriptions,
+		  pt.app_id as gameType
+		FROM
+			product_trade pt
+		LEFT JOIN product p ON p.id = pt.product_id	
+		LEFT JOIN steam_user su ON pt.steam_uid = su.steam_uid
+		LEFT JOIN product_category pc ON pc.id = p.product_category_id
+		LEFT JOIN product_type pte ON pte.id = p.product_type_id
+		WHERE p.id = #{id}
+       	AND pt.id =	#{tradeId} 
+		ORDER BY
+			p.id
+	</select>	
+	<select id="exportInfo" parameterType="pd" resultType="pd">
+		SELECT
+			p.id AS id,
+			p.steam_uid AS steamId,
+			p.`name` AS `name`,
+			p.product_category_id AS category,
+			pc.`name` AS categoryName,
+			p.product_type_id AS type,
+			pte.`name` AS typeName,
+			su.username AS steamName,
+		  pt.unit_price as salePrice,
+			pt.purchase_price AS price,
+			p.last_updated AS createTime,
+		  su.fee_rate as singleFee,
+			pt.id AS tradeId,
+			pt.bots_steam_uid AS house,
+			su.user_type AS userType,
+		  p.descriptions as descriptions
+		FROM
+			product_trade pt
+		LEFT JOIN product p ON p.id = pt.product_id
+		JOIN steam_user su
+		JOIN product_category pc
+		JOIN product_type pte
+		WHERE
+			p.steam_uid = su.steam_uid
+		AND pc.id = p.product_category_id
+		AND pte.id = p.product_type_id
+		AND pt.`status` = 0
+		AND p.id in (${ids}) 		
+		ORDER BY
+			p.id
+	</select>		
+	<select id="batProductDetail" parameterType="pd" resultType="pd">
+		SELECT
+			pgs.id AS id,
+			pgs.title AS packageName,
+			pgs.unit_price AS price,
+			pgs.date_added AS createTime,
+			su.username AS steamName,
+			su.user_type AS userType,
+			pgs.fee_money AS feeMoney,
+			pgs.descriptions AS detail
+		FROM
+			product_trade pt
+		JOIN product_group_sales pgs
+		JOIN steam_user su
+		WHERE
+			pgs.id = pt.group_id
+		AND su.steam_uid = pt.steam_uid
+		AND pt.group_id != 0
+		AND pgs.id = #{id}
+		GROUP BY
+			pgs.id
+	</select>	
+	<select id="batProductInfoslistPage" parameterType="page" resultType="pd">
+			SELECT
+			  p.id as id,
+			  p.`name` as `name`,
+			  p.product_category_id as category,
+			  pc.`name` as categoryName,
+			  p.product_type_id as type,
+			  pte.`name` as typeName,
+			  p.last_updated as createTime
+			FROM
+				product_trade pt
+			LEFT JOIN product p ON p.id = pt.product_id
+			JOIN product_group_sales pgs
+			JOIN product_category pc
+			JOIN product_type pte
+			WHERE
+				pgs.id = pt.group_id
+			  and pte.id = p.product_type_id
+			  and pc.id = p.product_category_id
+			AND pt.group_id != 0
+			AND pt.`status` !=10
+			AND pgs.id = #{pd.id}
+			ORDER BY p.id
+	</select>			
+	<select id="categoryList" parameterType="pd" resultType="pd">
+				SELECT
+				pc.id AS id,
+				pc.`name` AS `name`
+			FROM
+				product_category pc
+			WHERE
+				pc.is_enable = 1
+			AND pc.app_id = #{gameType}
+			ORDER BY
+				pc.sort
+	</select>
+    <select id="typeList" parameterType="pd" resultType="pd">
+			SELECT
+				pt.id AS id,
+				pt.title AS title,
+				pt.internal_name AS internalName,
+				pt.`name` AS `name`
+			FROM
+				product_type pt
+			WHERE
+				pt.is_enable = 1
+			AND pt.app_id = #{gameType}
+			AND pt.category_id = #{category}
+			ORDER BY
+				pt.sort
+	</select>
+	<select id="exteriorRarityList" parameterType="pd" resultType="pd">
+			SELECT DISTINCT
+				pts.`name`
+			FROM
+				product_tags pts
+			WHERE
+				pts.category = #{ercat}
+	</select>
+	<update id="addProducetPrice" parameterType="pd">
+		update product_trade set purchase_price = #{price},unit_price=#{salePrice}
+		where id = #{tradeId}
+	</update>
+	<update id="addProducetPrice1" parameterType="pd">
+		update product_trade set purchase_price = #{price},unit_price=#{unitPrice}
+		where id = #{tradeId}
+	</update>
+	<update id="updateSaleBuyPrice" parameterType="pd">
+		update product_trade set purchase_price = #{buyPrice},unit_price=#{salePrice}
+		where id = #{id}
+	</update>	
+	<update id="updateSalePrice" parameterType="pd">
+		
+			update product_trade 
+			set
+			unit_price=#{salePrice}
+			where id = #{id}
+
+	</update>
+	<update id="updatePruPrice" parameterType="pd">
+		
+			update product_trade 
+			set
+			purchase_price=#{buyPrice}
+			where id = #{id}
+
+	</update>
+	
+	<update id="updateProductOnOrDown" parameterType="pd">
+		update product_trade
+			set
+			status=#{status},
+			last_updated=#{updateTime}
+			where id = #{id}
+	</update>
+	<update id="updateKeyUnitPrice" parameterType="pd">
+		update product_trade 
+			set
+			unit_price=#{salePrice1}
+			where id in (${ids})
+	</update>
+	<update id="updateStatusToWholesale" parameterType="pd">
+		update product_trade
+			set
+			bots_steam_uid=#{botId},
+			status=#{status},
+			last_updated=#{updateTime}
+			where id = #{id}
+	</update>
+	<update id="updateStatusToWholesaleOne" parameterType="pd">
+		update product_trade
+			set
+			status=63,
+			last_updated=#{updateTime}
+			where id in (${ids})
+	</update>
+	<delete id="deleteWholesaleByIds" parameterType="pd">
+		DELETE from commodity_wholesale where trade_id in (${ids})
+	</delete>
+    <select id="inoutProductlistPage" parameterType="Page" resultType="pd">
+		SELECT
+			pt.id AS id,
+			pt.steam_uid AS steamId,
+			pt.steam_oid as oid,
+			p.`name` AS productName,
+			pt.bots_steam_uid AS robotId,
+			pts.title AS wear,
+			pt.descriptions AS exteriorWear,
+			pt.`status` AS result,
+			pt.last_updated AS backTime,
+			pt.app_id as gameType
+		FROM
+			product_trade pt
+		LEFT JOIN product p ON pt.product_id = p.id
+		JOIN steam_user su
+		left JOIN product_tags pts on pts.id = p.tags_exterior_id
+		WHERE
+		su.steam_uid = pt.steam_uid
+		AND pt.`status`  in(1,5,9,11)
+		<if test="pd.id!=null and pd.id!='' ">
+		    and pt.id = #{pd.id}
+		</if>
+		<if test="pd.steamId!=null and pd.steamId!='' ">
+		    and pt.steam_uid = #{pd.steamId}
+		</if>
+		<if test="pd.OId!=null and pd.OId!=''">
+			and pt.steam_oid=#{pd.OId}
+		</if>
+		<if test="pd.result!=null and pd.result!='' and pd.result!='-1' and pd.result!='-2'">
+		    and pt.`status` = #{pd.result}
+		</if>
+        <if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!='' and pd.lastLoginStart!=null and pd.lastLoginStart!=''">
+            and pt.last_updated between #{pd.lastLoginStart} and #{pd.lastLoginEnd}
+        </if>		
+		ORDER BY
+			pt.last_updated desc
+	</select>
+	<insert id="insertDataToWholesale" parameterType="java.util.List">
+		INSERT INTO commodity_wholesale(
+		trade_id,
+		steam_uid,
+		out_bot_steam_id,
+		in_bot_steam_id,
+		operator_id,
+		create_time,
+		remarks,
+		status
+		)
+		VALUES
+		<foreach item="item" index="index" collection="list" open="" separator="," close="">
+		(#{item.trade_id},#{item.steam_uid},#{item.out_bot_steam_id},#{item.in_bot_steam_id},#{item.operator_id},#{item.create_time},#{item.remarks},#{item.status})
+		</foreach>
+	</insert>
+	
+	<!-- 查询已上锁的产品 -->
+	<select id="lockProductlistPage" parameterType="Page" resultType="pd">
+		select l.id,l.ptid,l.lock_time,l.lock_status,l.lock_reason,l.lock_create_time,p.steam_pid,p.steam_oid,p.steam_uid,p.descriptions,p.app_id as gameType,
+		IFNULL(cast(p.purchase_price AS DECIMAL (10, 2)),0) AS price,	IFNULL(cast(p.unit_price AS DECIMAL (10, 2)),0) AS unitPrice,IFNULL(t.market_hash_name,"") AS hashName,tg.`name` AS exteriorName
+			from product_lock l
+	left join product_trade p on l.ptid=p.id
+	left join product t on p.product_id=t.id
+	left join product_tags tg on t.tags_exterior_id=tg.id
+	where 1=1
+		<if test="pd.tradeId!=null and pd.tradeId!='' ">
+		    and l.ptid = #{pd.tradeId}
+		</if>
+		
+		<if test="pd.steamId!=null and pd.steamId!='' ">
+		    and p.steam_uid = #{pd.steamId}
+		</if>
+		<if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!='' and pd.lastLoginStart!=null and pd.lastLoginStart!=''">
+            and l.lock_create_time between #{pd.lastLoginStart} and #{pd.lastLoginEnd}
+        </if>
+        <if test="pd.status!=null and pd.status!='' and pd.status!='-1' and pd.status!='-2'">
+		    and l.lock_status = #{pd.status}
+		</if>
+		<if test="pd.lock_time!=null and pd.lock_time!='' and pd.lock_time!='-1' and pd.lock_time!='-2'">
+		    and l.lock_time = #{pd.lock_time}
+		</if>
+		order by l.lock_create_time desc
+	</select>
+	
+	<!-- 查询商品的状态是否为2 -->
+	<select id="checkStatus" parameterType="pd" resultType="pd">
+			select id 
+		from 
+			product_trade
+		where 
+			id = #{tradeId}
+			and status=2
+	</select>
+	
+	<!-- 锁定商品 -->
+	<insert id="addLockProduct" parameterType="pd" flushCache="false">
+		insert into product_lock (
+			ptid,
+			lock_time,
+			lock_status,
+			lock_reason,
+			lock_id,
+			lock_name,
+			lock_create_time,
+			lock_last_updated
+		) values (
+			#{tradeId},
+			#{lock_time},
+			#{lock_status},
+			#{lock_reason},
+			#{lock_id},
+			#{lock_name},
+			#{createTime},
+			#{createTime}
+		)
+	</insert>
+	<!-- 锁定商品状态变为18或者变为1 -->
+	<update id="updateproductstatus" parameterType="pd">
+		update product_trade set status=#{status},last_updated=#{createTime} where id=#{tradeId} and status=#{oldstatus}
+	</update>
+	
+	
+	<!-- 解锁-->
+	<update id="cleanLockProduct" parameterType="pd">
+		update product_lock set lock_status=#{lock_status},clean_lock_id=#{clean_lock_id},clean_lock_name=#{clean_lock_name},lock_last_updated=#{lock_last_updated} where id=#{id}
+	</update>
+	
+	<select id="lockProductList" parameterType="pd" resultType="pd">
+		select id,ptid,lock_time,date_format(lock_create_time,'%Y-%m-%d') as lock_create_time,datediff(NOW(),lock_create_time) as intervaltime  from product_lock where lock_status=1 and lock_time!=0
+	</select>
+	
+	<!-- 查询异常商品 -->
+	<select id="ExceptionProductlistPage" parameterType="Page" resultType="pd">
+	  select pt.id,pt.steam_pid,pt.steam_oid,pt.steam_uid,pt.bots_steam_uid,pt.status,pt.unit_price,pt.date_created,pt.last_updated,p.name,pt.app_id as gameType from product_trade pt
+	   left join product p on pt.product_id=p.id where 1=1
+	  <if test="pd.tradeId!=null and pd.tradeId!='' ">
+		    and pt.id = #{pd.tradeId}
+	 </if>
+	 <if test="pd.gameType!=null and pd.gameType!='' and pd.gameType!='-1' and pd.gameType!='-2'">
+		    and pt.app_id = #{pd.gameType}
+		</if>
+		<if test="pd.steamId!=null and pd.steamId!='' ">
+		    and pt.steam_uid = #{pd.steamId}
+		</if>
+	   <if test="pd.pId!=null and pd.pId!='' ">
+		    and pt.steam_pid = #{pd.pId}
+	 	</if>
+	 	<if test="pd.status!=null and pd.status!='' and pd.status!='-1' and pd.status!='-2'">
+		    and pt.status = #{pd.status}
+		</if>
+		<if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!='' and pd.lastLoginStart!=null and pd.lastLoginStart!=''">
+            and pt.last_updated between #{pd.lastLoginStart} and #{pd.lastLoginEnd}
+        </if>
+        order by pt.last_updated desc
+	</select>
+	
+	<!-- 修改异常商品状态 -->
+	<update id="changeExceptionStatus" parameterType="pd">
+		update product_trade set status=#{changestatus},last_updated=#{createTime} where id = ${tradeId} and status = #{status}
+	</update>
+	
+	<!-- 查询该商品是否同步到国际 -->
+	<select id="checkIsSyn" parameterType="pd" resultType="pd">
+			select id,sales_site
+		from 
+			product_trade
+		where 
+			id = #{tradeId}
+	</select>
+	
+	
+</mapper>

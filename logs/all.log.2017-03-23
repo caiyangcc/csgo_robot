@@ -1,0 +1,8 @@
+2017-03-23 00:00:00,019  INFO ReportJobForWalletDetailService:26 - 开始钱包流水报表
+  2017-03-23 00:00:00,037  INFO UpdateYService:86 - update Y begin
+  2017-03-23 00:00:00,052  INFO ReportJobForCustomerService:32 - 开始客户对账报表
+  2017-03-23 00:00:00,226  INFO DruidDataSource:655 - {dataSource-1} inited
+  2017-03-23 00:00:00,251 ERROR UpdateYService:159 - 查询出box_item_id为空的箱子:[]
+  2017-03-23 00:00:00,389  INFO ReportJobForCustomerService:419 - 分析2017-03-22的数据完成。总共耗时为：114毫秒。
+  2017-03-23 00:00:00,389  INFO ReportJobForWalletDetailService:212 - 分析2017-03-23的数据完成。总共耗时为：366毫秒。
+  

@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AccountMapper">
+	<select id="findUserByKeyword" parameterType="pd" resultType="pd">
+		SELECT
+			su.id AS id,
+			su.steam_uid AS steamId,
+			su.username AS steamName,
+			su.personaname AS personaname,
+			su.bots_max_quantity AS capity,
+			su.date_joined AS createTime,
+			su.is_active AS 'status',
+			su.user_type AS type
+		FROM
+			steam_user su
+		WHERE
+			su.is_block = 0
+		<if test="keyword!=null and keyword!=''">
+		    and su.steam_uid like CONCAT(CONCAT('%',#{keyword}),'%')
+		</if>								
+		ORDER BY
+			su.date_joined
+		limit 0,20	
+	</select>
+	<select id="accountlistPage" parameterType="Page" resultType="pd">
+		SELECT
+			su.id AS id,
+			su.steam_uid AS steamId,
+			su.personaname AS steamName,
+			su.bots_max_quantity AS capity,
+			su.date_joined AS createTime,
+			su.is_active AS 'status',
+			su.user_type AS type
+		FROM
+			steam_user su
+		WHERE
+			su.is_block = 0
+		AND su.user_type != 1
+		AND su.user_type != 4
+		<if test="pd.steamId!=null and pd.steamId!=''">
+		    and su.steam_uid = #{pd.steamId}
+		</if>
+		<if test="pd.steamName!=null and pd.steamName!=''">
+		    and su.personaname like CONCAT(CONCAT('%',#{pd.steamName}),'%')
+		</if>
+		<if test="pd.robotStatus!=null and pd.robotStatus!='-2' and pd.robotStatus!='-1'">
+		    and su.is_active = #{pd.robotStatus}
+		</if>
+		<if test="pd.robotType!=null and pd.robotType!='-2' and pd.robotType!='-1'">
+		    and su.user_type = #{pd.robotType}
+		</if>								
+		ORDER BY
+			su.date_joined desc
+	</select>
+	
+<select id="selfUserlistPage" parameterType="Page" resultType="pd">                                                  
+ 			SELECT                                                                                                           
+				su.id AS id,                                                                                                   
+				su.steam_uid AS steamId,                                                                                       
+				su.personaname AS steamName,                                                                                   
+			    su.phone as phone,                                                                                           
+			    su.fee_rate as fee,                                                                                          
+			    su.email as email,                                                                                           
+			    su.is_active AS 'status',                                                                                    
+			    su.fee_rate_group as groupFee,                                                                               
+			    su.date_joined as createTime,                                                                                
+	            su.track_link as link,                                                                                   
+	            su.user_type as userType                                                                                 
+			FROM                                                                                                             
+				steam_user su                                                                                                  
+			WHERE                                                                                                            
+				su.is_block = 0                                                                                                
+				and su.user_type in (4,5)                                                                                      
+		<if test="pd.steamId!=null and pd.steamId!=''">                                                                    
+		    and su.steam_uid = #{pd.steamId}                                                                               
+		</if>                                                                                                              
+		<if test="pd.steamName!=null and pd.steamName!=''">                                                                
+		    and su.personaname like CONCAT(CONCAT('%',#{pd.steamName}),'%')                                                
+		</if>                                                                                                              
+		<if test="pd.robotStatus!=null and pd.robotStatus!='-2' and pd.robotStatus!='-1'">                                 
+		    and su.is_active = #{pd.robotStatus}                                                                           
+		</if>                                                                                                              
+		<if test="pd.userType!=null and pd.userType!='-2' and pd.userType!='-1'">                                          
+		    and su.user_type = #{pd.userType}                                                                              
+		</if>	                                                                                                             
+        <if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!='' and pd.lastLoginStart!=null and pd.lastLoginStart!=''">
+            and su.createTime between #{pd.lastLoginStart} and #{pd.lastLoginEnd}                                      
+        </if> 								                                                                                         
+		ORDER BY                                                                                                           
+			su.date_joined desc                                                                                              
+	                                                                                                                     
+	</select> 
+	<select id="userlistPage" parameterType="Page" resultType="pd">
+ 			SELECT
+				su.id AS id,
+				su.steam_uid AS steamId,
+				su.personaname AS steamName,
+			    su.phone as phone,
+			    su.fee_rate as fee,
+			    su.email as email,
+			    su.is_active AS 'status',
+			    su.fee_rate_group as groupFee,
+			    su.date_joined as createTime,
+	            su.track_link as link,
+	            su.user_type as usertype,
+	            m.total_exp_value as exp,
+	            CONCAT('LV',m.exp_level) as name
+			FROM
+				steam_user su
+				inner join user_info m on su.id=m.user_id		
+				<if test="pd.astrictPermissionId!=null and pd.astrictPermissionId!='' and pd.astrictPermissionId!='-1' and pd.astrictPermissionId!='-2'">
+				join (select * from `user_astrict_pesmission` where astrict_permission_id=#{pd.astrictPermissionId} and status=1) a on su.id=a.user_id
+				</if>
+			WHERE
+				su.is_block = 0 
+<!-- select sop.id,sop.steamId,sop.steamName,sop.phone,sop.fee,sop.email,
+	sop.`status`,sop.groupFee,sop.createTime,sop.link,
+	IFNULL(sop.tm,0) as tm,
+	IFNULL(sop.ta,0) as ta,
+	IFNULL(sop.num,0) as num
+from
+(select 
+	sso.id AS id,
+	sso.steamId AS steamId,sso.steamName AS steamName,sso.phone as phone,
+	sso.fee as fee,sso.email as email,sso.`status` AS `status`,sso.groupFee as groupFee,
+	sso.createTime as createTime,sso.link as link,
+	sso.tm as tm,
+	sso.ta as ta,
+	ssp.countNum as num
+from
+(select 
+				su.id AS id,
+				su.steam_uid AS steamId,
+				su.personaname AS steamName,
+			  su.phone as phone,
+			  su.fee_rate as fee,
+			  su.email as email,
+			  su.is_active AS `status`,
+			  su.fee_rate_group as groupFee,
+			  su.date_joined as createTime,
+	      su.track_link as link,
+				suo.totalMoney as tm,
+				suo.totalAmount as ta
+	from steam_user su
+	LEFT JOIN
+	(select 
+					o.seller_steam_uid AS ssu,
+					sum((o.actual_paid - o.fee_money)) AS totalMoney,
+					sum(o.amount) AS totalAmount
+	from steam_user su , `order` o
+	where su.steam_uid=o.seller_steam_uid and su.is_block = 0 and o.`status`=1
+	GROUP BY seller_steam_uid)suo
+	on su.steam_uid= suo.ssu and su.is_block = 0)sso 
+LEFT JOIN
+	(select 
+		pt.steam_uid as sid, 
+		count(pt.steam_uid) as countNum  
+		from steam_user su , product_trade pt
+		where su.steam_uid= pt.steam_uid and pt.`status`=2 and su.is_block = 0
+		group by pt.steam_uid having(count(pt.steam_uid)>1))ssp
+on sso.steamId=ssp.sid)sop  
+		where 1=1 -->
+		<if test="pd.steamId!=null and pd.steamId!=''">
+		    and su.steam_uid = #{pd.steamId}
+		</if>
+		<!-- <if test="pd.usertype!=null and pd.usertype!='' and pd.usertype!='-1' and pd.usertype!='-2'">
+			and su.user_type=#{pd.usertype}
+		</if> -->	
+		
+		<if test="pd.userlevel!=null and pd.userlevel!='' and pd.userlevel!='-1' and pd.userlevel!='-2'">
+			and m.exp_level=#{pd.userlevel}
+		</if> 
+		
+        <if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!='' and pd.lastLoginStart!=null and pd.lastLoginStart!=''">
+            and su.date_joined between #{pd.lastLoginStart} and #{pd.lastLoginEnd}
+        </if> 								
+			
+		<if test="pd.clomnName==null or pd.clomnName==''">
+		   ORDER BY
+			su.date_joined desc
+		</if>
+		
+		<if test="pd.clomnName!=null and pd.clomnName!=''">
+		   ORDER BY ${pd.clomnName}
+		</if>
+		<if test="pd.clomnSequence!=null and pd.clomnSequence!='' and pd.clomnSequence==0">
+		  desc
+		</if>
+		<if test="pd.clomnSequence!=null and pd.clomnSequence!='' and pd.clomnSequence==1">
+		  asc
+		</if>
+		
+	</select>
+	
+	
+	<select id="listPageNormalUserLevel" parameterType="Page" resultType="pd">
+		select * from user_exp_level order by level
+	</select>
+	
+	
+	<select id="getUserLevelLoglistPage" parameterType="Page" resultType="pd">
+		select e.steam_uid,e.draw_time,e.created,e.exp_value,e.curr_total_value,e.status,e.reseaon,
+		t.name,t.type,t.description from user_exp e 
+		left join user_exp_type t on e.exp_type_id= t.id where e.user_id=#{pd.id}
+		order by e.draw_time desc
+	
+	</select>
+	<select id="blacklistPage" parameterType="Page" resultType="pd">
+		SELECT
+			su.id AS id,
+			su.steam_uid AS steamId,
+			su.username AS steamName,
+		    su.phone as phone,
+		    su.fee_rate as fee,
+		    su.email as email,
+		    su.is_active AS 'status',
+		    su.date_joined as createTime
+		FROM
+			steam_user su
+		WHERE
+			su.is_block = 1
+		<if test="pd.steamId!=null and pd.steamId!=''">
+		    and su.steam_uid = #{pd.steamId}
+		</if>
+		<if test="pd.steamName!=null and pd.steamName!=''">
+		    and su.username like CONCAT(CONCAT('%',#{pd.steamName}),'%')
+		</if>								
+		ORDER BY
+			su.date_joined desc
+	</select>
+	
+	<!-- 黑名单操作历史记录 -->
+	<select id="getBlackHistorylistPage" parameterType="Page" resultType="pd">
+	select description,create_date from sys_log where table_name='steam_user' and table_id=#{pd.id} order by create_date desc
+	
+	</select>	
+	<select id="findUserById" parameterType="pd" resultType="pd">
+		SELECT
+			su.id AS id,
+			su.steam_uid AS steamId,
+			su.username AS steamName,
+		    su.phone as phone,
+		    su.fee_rate as fee,
+		    su.email as email,
+		    su.is_active AS 'status',
+		    su.fee_rate_group as groupFee,
+		    su.date_joined as createTime,
+		    su.steam_level
+		FROM
+			steam_user su
+		WHERE
+			su.id = #{id}
+	</select>	
+	<update id="updateUserStatus" parameterType="pd">
+		update steam_user set is_active = #{statusCode},date_joined=#{updateTime}
+		where id = #{id}
+	</update>
+	<update id="updateUserBlack" parameterType="pd">
+		update steam_user set is_block = 0
+		where id = #{id}
+	</update>
+	<update id="addBlack" parameterType="pd">
+		update steam_user set is_block = 1
+		where id = #{id}
+	</update>		
+	<update id="addRobot" parameterType="pd">
+		update steam_user set
+		<if test="robotType!=null and robotType!=''"> 
+		   user_type = #{robotType},
+		</if>
+		<if test="capty!=null and capty!=''"> 
+		   bots_max_quantity = #{capty}
+		</if>
+		where id = #{id}
+	</update>
+	<update id="addSelf" parameterType="pd">
+		update steam_user set
+		   user_type = #{userType}
+		where id = #{id}
+	</update>		
+	<update id="updateNormalUser" parameterType="pd">
+		update steam_user set phone = #{phone},email=#{email},fee_rate=#{fee},fee_rate_group=#{groupFee},steam_level=#{steam_level}
+		<if test="usertype!=null and usertype!=''"> 
+		   ,user_type = #{usertype}
+		</if>
+		where id = #{id}
+	</update>
+	<update id="updateVIPUserStatus" parameterType="pd">
+	  update steam_user set  user_type= #{statusCode}
+		where id = #{id}
+	</update>
+	<select id="vipUserlistPage" parameterType="Page" resultType="pd">
+	  SELECT
+				su.id AS id,
+				su.steam_uid AS steamId,
+				su.personaname AS steamName,
+			    su.phone as phone,
+			    su.fee_rate as fee,
+			    su.email as email,
+			    su.user_type AS 'status',
+			    su.fee_rate_group as groupFee,
+			    su.date_joined as createTime,
+	            su.track_link as link
+			FROM
+				steam_user su
+			WHERE
+				su.is_block = 0
+				and su.is_active=1 
+		    
+		 <if test="pd.vipStatus==null or (pd.vipStatus!=null and (pd.vipStatus=='-2' or pd.vipStatus=='-1'))">
+		    and su.user_type in(1,3)
+		</if>	
+		<if test="pd.steamId!=null and pd.steamId!=''">
+		    and su.steam_uid = #{pd.steamId}
+		</if>
+		<if test="pd.steamName!=null and pd.steamName!=''">
+		    and su.personaname like CONCAT(CONCAT('%',#{pd.steamName}),'%')
+		</if>
+		<if test="pd.vipStatus!=null and pd.vipStatus!='-2' and pd.vipStatus!='-1'">
+		    and su.user_type = #{pd.vipStatus}
+		</if>	
+        <if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!='' and pd.lastLoginStart!=null and pd.lastLoginStart!=''">
+            and su.date_joined between #{pd.lastLoginStart} and #{pd.lastLoginEnd}
+        </if> 								
+		ORDER BY
+			su.date_joined desc
+
+	</select>
+	
+	<select id="robotAccountlistPage" parameterType="Page" resultType="pd">
+		SELECT
+			su.id AS id,
+			su.steam_uid AS steamId,
+			su.steam_uname AS steamName,
+			su.create_time AS createTime,
+			su.robot_type AS robotType,
+			su.stock_amount AS stockAmount,
+			su.vip_steam_uid as steamuid,
+			su.status as status,
+			su.res_varchar as resVarchar,
+			su.last_check_Time as checkTime,
+			su.last_checked_success_Time as checkSuccessTime,
+			su.app_id,
+			robot_ip,
+			limited,
+			offline,
+			user_level_s,
+			user_level_e
+		FROM
+			robot_list_dic su
+		WHERE
+			1=1
+		<if test="pd.steamId!=null and pd.steamId!=''">
+		    and su.steam_uid = #{pd.steamId}
+		</if>
+		<if test="pd.steamName!=null and pd.steamName!=''">
+		    and su.steam_uname like CONCAT(CONCAT('%',#{pd.steamName}),'%')
+		</if>
+		<if test="pd.robotType!=null and pd.robotType!='' and pd.robotType!='-1' and pd.robotType!='-2'">
+		    and su.robot_type = #{pd.robotType}
+		</if>
+		<if test="pd.limited!=null and pd.limited!='' and pd.limited!='-1' and pd.limited!='-2'">
+		    and su.limited = #{pd.limited}
+		</if>
+		<if test="pd.offline!=null and pd.offline!='' and pd.offline!='-1' and pd.offline!='-2'">
+		    and su.offline = #{pd.offline}
+		</if>
+		<if test="pd.robotLevel!=null and pd.robotLevel!='' and pd.robotLevel!='-1' and pd.robotLevel!='-2'">
+		    and CONCAT(CONCAT(su.user_level_s,'_'),su.user_level_e) = #{pd.robotLevel}
+		</if>
+		<if test="pd.app_id!=null and pd.app_id!='' and pd.app_id!='-1' and pd.app_id!='-2'">
+		    and su.app_id = #{pd.app_id}
+		</if>
+		<if test="pd.status!=null and pd.status!='' and pd.status!='-1' and pd.status!='-2'">
+		    and su.status = #{pd.status}
+		</if>
+		  ORDER BY
+			su.create_time desc
+	</select>
+	<!-- 新增机器人 -->
+	<insert id="addRobotAccount" parameterType="pd" flushCache="false">
+		insert into robot_list_dic (
+			steam_uid,
+			steam_uname,
+			create_time,
+			robot_type,
+			`password`,
+			`status`,
+			res_varchar,
+			Api_Key,
+			user_level_s,
+			user_level_e
+		) values (
+			#{steamId},
+			#{steamName},
+			#{createTime},
+			#{robotType},
+			#{password},
+			#{status},
+			#{rebotUserName},
+			#{apiKey},
+			#{user_level_s},
+			#{user_level_e}
+		)
+	</insert>
+	<!-- 修改机器人 -->
+	<update id="updateRobotAccount">
+		update robot_list_dic set steam_uid=#{steamId},steam_uname=#{steamName},robot_type=#{robotType},password=#{password},res_varchar=#{rebotUserName},Api_Key=#{apiKey},
+		user_level_s=#{user_level_s},user_level_e=#{user_level_e}
+		where id =#{rebotId}
+	</update>
+	
+	<select id="getRebotById" parameterType="int" resultType="pd" >
+	SELECT
+			su.id AS rebotId,
+			su.steam_uid AS steamId,
+			su.steam_uname AS steamName,
+			su.robot_version AS version,
+			su.create_time AS createTime,
+			su.robot_type AS robotType,
+			su.stock_amount AS stockAmount,
+			su.vip_steam_uid as steamuid,
+			su.`status` as status,
+			su.password as password,
+			su.res_varchar as rebotUserName,
+			su.Api_key as apiKey,
+			su.user_level_s,
+			su.user_level_e
+		FROM
+			robot_list_dic su
+			
+		WHERE su.id = #{__parameter}
+	</select>
+		
+	<select id="findSteamId" parameterType="pd" resultType="pd" useCache="false">
+		select id 
+		from 
+			robot_list_dic
+		where 
+			steam_uid = #{steamId}
+	</select>
+	
+	<!-- 查询店铺审核 -->
+	<select id="findShoplistPage" parameterType="page" resultType="pd">
+		SELECT usp.id AS id,
+			usp.steam_uid AS steamUid,
+			usp.`name` AS shopName,
+			usp.description,
+			usp.shop_link AS shopLink,
+			usp.`status` AS shopStatus,
+			usp.last_updated AS updateTime,
+			IFNULL(a.putnum,0) AS putnum,
+			IFNULL(a.salenum,0) AS salenum,
+			CAST(IFNULL(a.saleamount,0) AS DECIMAL(10,2)) AS saleamount
+		FROM user_shop usp LEFT JOIN 
+		(
+			SELECT 
+			rf.seller_steam_id AS uid,
+			rf.number_of_sold AS salenum,
+			rf.put_on_number AS putnum,
+			rf.sale_amount AS saleamount
+			FROM report7_seller_day_form rf
+  	where rf.id in (
+	SELECT
+	a.id
+	FROM
+	report7_seller_day_form a,
+	(
+		SELECT
+			seller_steam_id,
+			max(data_anlyz_time) AS data_anlyz_time1
+		FROM
+			report7_seller_day_form
+		group by 
+			seller_steam_id
+	) b
+	WHERE
+	a.seller_steam_id = b.seller_steam_id
+	AND a.data_anlyz_time = b.data_anlyz_time1
+	)
+		) a
+    	on usp.steam_uid= a.uid
+		WHERE 1=1
+		<if test="pd.steamUid !=null and pd.steamUid !=''">
+			and usp.steam_uid=#{pd.steamUid}
+		</if>
+		<if test="pd.shopName!=null and pd.shopName!=''">
+			and usp.`name` like CONCAT(CONCAT('%', #{pd.shopName}),'%')
+		</if>
+		<if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!='' and pd.lastLoginStart!=null and pd.lastLoginStart!=''">
+			and usp.last_updated between #{pd.lastLoginStart} and #{pd.lastLoginEnd}
+		</if>
+		<if test="pd.shopStatus !=null and pd.shopStatus!='' and pd.shopStatus!='-1' and pd.shopStatus!='-2'">
+			and usp.`status`=#{pd.shopStatus}
+		</if>
+		
+		
+		<if test="pd.clomnName==null or pd.clomnName==''">
+		  ORDER BY usp.last_updated DESC
+		</if>
+		
+		<if test="pd.clomnName!=null and pd.clomnName!=''">
+		   ORDER BY ${pd.clomnName}
+		</if>
+		<if test="pd.clomnSequence!=null and pd.clomnSequence!='' and pd.clomnSequence==0">
+		  desc
+		</if>
+		<if test="pd.clomnSequence!=null and pd.clomnSequence!='' and pd.clomnSequence==1">
+		  asc
+		</if>
+		
+		
+	</select>
+	
+	<select id="findShopByIds" parameterType="pd" resultType="pd" useCache="false">
+		SELECT usp.id AS id,
+			usp.steam_uid AS steamUid,
+			usp.`name` AS shopName,
+			usp.description,
+			usp.shop_link AS shopLink,
+			usp.`status` AS shopStatus,
+			usp.last_updated AS updateTime,
+			IFNULL(a.putnum,0) AS putnum,
+			IFNULL(a.salenum,0) AS salenum,
+			CAST(IFNULL(a.saleamount,0) AS DECIMAL(10,2)) AS saleamount
+		FROM user_shop usp LEFT JOIN 
+		(SELECT 
+			rf.seller_steam_id AS uid,
+			rf.number_of_sold AS salenum,
+			rf.put_on_number AS putnum,
+			rf.sale_amount AS saleamount
+			FROM report7_seller_day_form rf
+			WHERE rf.id in
+		(SELECT
+			id
+		FROM report7_seller_day_form rf where data_anlyz_time = (select max(data_anlyz_time) from report7_seller_day_form)
+			GROUP BY rf.seller_steam_id))a
+				ON usp.steam_uid=a.uid
+		WHERE usp.id in (${ids}) 
+		
+		<if test="clomnName==null or clomnName==''">
+		  ORDER BY usp.last_updated DESC
+		</if>
+		
+		<if test="clomnName!=null and clomnName!=''">
+		   ORDER BY ${clomnName}
+		</if>
+		<if test="clomnSequence!=null and clomnSequence!='' and clomnSequence==0">
+		  desc
+		</if>
+		<if test="clomnSequence!=null and clomnSequence!='' and clomnSequence==1">
+		  asc
+		</if> 
+	</select>
+	
+	
+	<update id="updateshopstatus" parameterType="pd">
+		UPDATE user_shop SET  `status`=#{shopStatus}, `last_updated`=#{time} 
+		WHERE id=#{id}
+	</update>
+	<update id="updateshopsstatus" parameterType="pd">
+		UPDATE user_shop SET  `status`=#{shopStatus}, `last_updated`=#{time} 
+		WHERE id in (${id})
+	</update>
+	
+	<!--修改联系用户的邮箱  -->
+	<update id="updateUserContact" parameterType="pd">
+     	update user_contact set default_notice=0,`primary`=0 where user_id=#{id} and contact_by=#{oldemail}
+	</update>
+	
+	<!-- 新增修改后的新邮箱 -->
+	<insert id="addUserContact" parameterType="pd">
+		insert into user_contact(contact_method,contact_by,date_created,verified,`primary`,`backup`,default_notice,user_id)
+		values(1,#{email},NOW(),1,1,0,1,#{id})
+	</insert>
+	
+	<!-- 判断该邮箱是否存在 -->
+	<select id="checkEmail" parameterType="pd" resultType="pd">
+		select id 
+		from 
+			user_contact
+		where 
+			contact_by=#{email} and user_id=#{id}
+	</select>
+	
+	<!--修改之前用户的邮箱  -->
+	<update id="updateOldUserContact" parameterType="pd">
+     	update user_contact set default_notice=1,`primary`=1 where user_id=#{id} and contact_by=#{email}
+	</update>
+	
+	<!-- 查询所有机器人 -->
+	<select id="getALLRobot" resultType="String">
+	   select steam_uid from robot_list_dic
+	</select>
+	
+	<!-- 更新机器人 -->
+	<update id="updateRobot" parameterType="pd">
+		update robot_list_dic set robot_ip=#{robot_ip},limited=#{limited},offline=#{offline},robot_version=#{robot_version},status=0
+		where steam_uid=#{steam_uid}
+	</update>
+	
+	<!--更改状态 -->
+	<update id="updateRobotStatus" parameterType="String">
+		update robot_list_dic set status=1 where steam_uid=#{steam_uid}
+	</update>
+	
+	<!-- 查询所有的等级 -->
+	<select id="getAllLevel" resultType="pd">
+		select DISTINCT CONCAT(CONCAT(user_level_s,'_'),user_level_e) as robotLevel from robot_list_dic;
+	</select>
+	
+	<!-- 查询机器人库存数量 -->
+	<select id="getRobotAmount" resultType="pd">
+		select count(id) as amount from product_trade where status in (1,2,3,5,7) and bots_steam_uid=#{steam_uid}
+	</select>
+	
+	<!-- 查询机器人 -->
+	<select id="getRobot" resultType="pd">
+	  	select steam_uid from robot_list_dic 
+	</select>
+	<!-- 修改库存数量 -->
+	<update id="updateAmount">
+		update robot_list_dic set stock_amount=#{amount} where steam_uid=#{bots_steam_uid}
+	</update>
+</mapper>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:jee="http://www.springframework.org/schema/jee" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx.xsd
+						http://www.springframework.org/schema/util
+                        http://www.springframework.org/schema/util/spring-util-3.0.xsd"
+>
+
+
+	
+	<!-- 启动触发器的配置开始 -->
+	<bean name="startQuertz" lazy-init="false" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!--修改Y值的定时任务  -->
+				<ref bean="updateYTrigger"/>
+				<!--更新机器人在架数量  -->
+				<ref bean="updateRobotAmountTrigger" />
+				<!--关闭房间-->
+				<ref bean="cancleRoomTrigger"/>
+				<!--解除锁定操作定时任务-->
+				<ref bean="cleanLockTrigger"/>
+				<!--卖家排行榜定时任务-->
+				<ref bean="sellerRankingTrigger"/>
+				<!--修改土豪标签-->
+				<ref bean="rollValueTrigger"/>
+				<!--刷新总数存入缓存-->
+				<ref bean="flushCountTrigger"/>
+				<!--更新价格-->
+				<ref bean="returnVoucherTrigger"/>
+				<!--报表-->
+				<ref bean="reportJobTrigger" />
+				<!--钱包流水-->
+				<ref bean="reportJobForWalletTrigger" />
+				<!--客户对账-->
+				<ref bean="reportJobForCustomerTrigger" />
+				<!-- 吞货自动处理-->
+				<ref bean="reportJobForDealGoodsTrigger" />
+			</list>
+		</property>
+	</bean>
+	<!-- 启动触发器的配置结束 -->
+
+
+	<!-- quartz-2.x的配置 -->
+	 <bean id="updateYTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="updateYDetail"/>
+		</property>
+		<property name="cronExpression">
+			<!--每隔10min do it-->
+			<value>0 0/10 * * * ?</value>
+		</property>
+	</bean>
+	<!--调度的配置结束-->
+
+	<!--job的配置开始-->
+	<bean id="updateYDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="updateYService" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	
+	
+   <!--quartz-2.x的配置-->
+	<bean id="updateRobotAmountTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="updateRobotAmountJobDetail"/>
+		</property>
+		<property name="cronExpression">
+			<!--每隔60分钟触发-->
+			<value>0 0/60 * * * ?</value>
+		</property>
+	</bean>
+	<!--调度的配置结束-->
+
+	<!--job的配置开始-->
+	<bean id="updateRobotAmountJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="updateRobotAmountService" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	
+	<!--job的配置结束-->
+	 <bean id="cancleRoomTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="cancleRoomJobDetail"/>
+		</property>
+		<property name="cronExpression">
+		
+			<value>30 12 23 * * ?</value>
+		</property>
+	</bean> 
+	
+	 <bean id="cancleRoomJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="cancleRoomService" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean> 
+	
+	<!--解除锁定触发时间-->
+	<bean id="cleanLockTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="cleanLockDetail"/>
+		</property>
+		<property name="cronExpression">	
+			<value>00 23 15 * * ?</value>
+		</property>
+	</bean> 
+	
+	
+	<!--解除锁定触发类-->
+	 <bean id="cleanLockDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="cleanLockService" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	
+	
+	<!--卖家排行榜触发时间-->
+	<bean id="sellerRankingTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="sellerRankingDetail"/>
+		</property>
+		<property name="cronExpression">
+			<value>00 00 02 ? * 2</value>
+		</property>
+	</bean> 
+		
+	<!--卖家排行榜触发类触发类-->
+	 <bean id="sellerRankingDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="reportJobForSellerRankingService" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	
+	
+	
+	
+	<!--修改土豪标签触发时间-->
+	<bean id="rollValueTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="rollValueDetail"/>
+		</property>
+		<property name="cronExpression">
+			<value>00 00 00 ? * 2</value>
+		</property>
+	</bean>
+		
+	<!--修改土豪标签处理类-->
+   <bean id="rollValueDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="rollTagService" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+
+
+	<bean id="flushCountTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="flushCountDetail"/>
+		</property>
+		<property name="cronExpression">
+			<value>00 10 12 * * ?</value>
+		</property>
+	</bean>
+	<!--调度的配置结束-->
+
+	<!--job的配置开始-->
+	<bean id="flushCountDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="flushCountService" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	
+	
+	
+	<bean id="returnVoucherTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="returnVoucherDetail"/>
+		</property>
+		<property name="cronExpression">
+			<value>0 0/60 * * * ?</value>
+		</property> 
+	</bean>
+	<!--调度的配置结束-->
+
+	<!--job的配置开始-->
+	<bean id="returnVoucherDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="returnVoucherService" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	
+	<bean id="reportJobTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="reportJobDetail"/>
+		</property>
+		<property name="cronExpression">
+			<value>0 0 4 * * ?</value>
+		</property>
+	</bean>
+	
+	<bean id="reportJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="reportJobService" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	
+	<bean id="reportJobForWalletTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="reportJobForWalletDetail"/>
+		</property>
+		<property name="cronExpression">
+			<value>00 00 00 * * ?</value>
+		</property>
+	</bean> 
+	
+	<bean id="reportJobForWalletDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="reportJobForWalletDetailService" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	
+	<bean id="reportJobForCustomerTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="reportJobForCustomerDetail"/>
+		</property>
+		<property name="cronExpression">	
+			<value>00 00 00 * * ?</value>
+		</property>
+	</bean>
+	
+	 <bean id="reportJobForCustomerDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="reportJobForCustomerDetailService" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	
+	
+	
+	 <bean id="reportJobForDealGoodsTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="reportJobForDealGoodsDetail"/>
+		</property>
+		<property name="cronExpression">	
+			<value>0 0/10 * * * ?</value>
+		</property>
+	</bean>
+	
+	
+	<bean id="reportJobForDealGoodsDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="autoDealGoodsService" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	
+</beans>

@@ -1,0 +1,292 @@
+2016-09-13 15:59:08,859  INFO AppController:48 - Starting AppController on SO032YZZVSMQVSS with PID 7204 (D:\eclipsejavaee\csgo_robot\target\classes started by Administrator in D:\eclipsejavaee\csgo_robot)
+  2016-09-13 15:59:08,861  INFO AppController:666 - No active profile set, falling back to default profiles: default
+  2016-09-13 15:59:08,889  INFO AnnotationConfigEmbeddedWebApplicationContext:578 - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2f943d71: startup date [Tue Sep 13 15:59:08 CST 2016]; root of context hierarchy
+  2016-09-13 15:59:09,097  INFO Version:17 - HV000001: Hibernate Validator 5.2.2.Final
+  2016-09-13 15:59:09,307  INFO DefaultListableBeanFactory:839 - Overriding bean definition for bean 'beanNameViewResolver' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+  2016-09-13 15:59:09,498  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:328 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$5b5a0485] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+  2016-09-13 15:59:09,895  INFO TomcatEmbeddedServletContainer:81 - Tomcat initialized with port(s): 8080 (http)
+  2016-09-13 15:59:09,905  INFO StandardService:180 - Starting service Tomcat
+  2016-09-13 15:59:09,906  INFO StandardEngine:180 - Starting Servlet Engine: Apache Tomcat/8.0.30
+  2016-09-13 15:59:10,054  INFO TldScanner:180 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+  2016-09-13 15:59:10,056  INFO [/]:180 - Initializing Spring embedded WebApplicationContext
+  2016-09-13 15:59:10,056  INFO ContextLoader:272 - Root WebApplicationContext: initialization completed in 1169 ms
+  2016-09-13 15:59:10,350  INFO ServletRegistrationBean:189 - Mapping servlet: 'dispatcherServlet' to [/]
+  2016-09-13 15:59:10,353  INFO FilterRegistrationBean:258 - Mapping filter: 'characterEncodingFilter' to: [/*]
+  2016-09-13 15:59:10,353  INFO FilterRegistrationBean:258 - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+  2016-09-13 15:59:10,353  INFO FilterRegistrationBean:258 - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+  2016-09-13 15:59:10,354  INFO FilterRegistrationBean:258 - Mapping filter: 'requestContextFilter' to: [/*]
+  2016-09-13 15:59:10,601  INFO RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2f943d71: startup date [Tue Sep 13 15:59:08 CST 2016]; root of context hierarchy
+  2016-09-13 15:59:10,646  INFO RequestMappingHandlerMapping:527 - Mapped "{[/hello]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.Hello()
+  2016-09-13 15:59:10,648  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+  2016-09-13 15:59:10,648  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+  2016-09-13 15:59:10,789  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-09-13 15:59:10,789  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-09-13 15:59:10,811  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-09-13 15:59:10,894  INFO AnnotationMBeanExporter:431 - Registering beans for JMX exposure on startup
+  2016-09-13 15:59:10,918  INFO Http11NioProtocol:180 - Initializing ProtocolHandler ["http-nio-8080"]
+  2016-09-13 15:59:10,923  INFO Http11NioProtocol:180 - Starting ProtocolHandler ["http-nio-8080"]
+  2016-09-13 15:59:10,934  INFO NioSelectorPool:180 - Using a shared selector for servlet write/read
+  2016-09-13 15:59:10,956  INFO TomcatEmbeddedServletContainer:162 - Tomcat started on port(s): 8080 (http)
+  2016-09-13 15:59:10,959  INFO AppController:57 - Started AppController in 2.286 seconds (JVM running for 2.534)
+  2016-09-13 15:59:11,903  INFO ScheduleController:30 - http://steamcommunity.com/profiles/robotid/inventory/json/730/2/
+  2016-09-13 16:02:00,577 ERROR Http11NioProtocol:182 - Failed to start end point associated with ProtocolHandler ["http-nio-8080"]
+  java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:414)
+	at sun.nio.ch.Net.bind(Net.java:406)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:340)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:765)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:473)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:986)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:239)
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.addPreviouslyRemovedConnectors(TomcatEmbeddedServletContainer.java:194)
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.start(TomcatEmbeddedServletContainer.java:151)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.startEmbeddedServletContainer(EmbeddedWebApplicationContext.java:293)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.finishRefresh(EmbeddedWebApplicationContext.java:141)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:541)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:118)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:766)
+	at org.springframework.boot.SpringApplication.createAndRefreshContext(SpringApplication.java:361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1191)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1180)
+	at com.softisland.AppController.main(AppController.java:11)
+2016-09-13 16:02:00,580 ERROR StandardService:182 - Failed to start connector [Connector[HTTP/1.1-8080]]
+  org.apache.catalina.LifecycleException: Failed to start component [Connector[HTTP/1.1-8080]]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:154)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:239)
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.addPreviouslyRemovedConnectors(TomcatEmbeddedServletContainer.java:194)
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.start(TomcatEmbeddedServletContainer.java:151)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.startEmbeddedServletContainer(EmbeddedWebApplicationContext.java:293)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.finishRefresh(EmbeddedWebApplicationContext.java:141)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:541)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:118)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:766)
+	at org.springframework.boot.SpringApplication.createAndRefreshContext(SpringApplication.java:361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1191)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1180)
+	at com.softisland.AppController.main(AppController.java:11)
+Caused by: org.apache.catalina.LifecycleException: service.getName(): "Tomcat";  Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:993)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	... 13 more
+Caused by: java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:414)
+	at sun.nio.ch.Net.bind(Net.java:406)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:340)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:765)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:473)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:986)
+	... 14 more
+2016-09-13 16:02:00,603 ERROR SpringApplication:827 - Application startup failed
+  org.springframework.boot.context.embedded.EmbeddedServletContainerException: Unable to start embedded Tomcat servlet container
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.start(TomcatEmbeddedServletContainer.java:165)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.startEmbeddedServletContainer(EmbeddedWebApplicationContext.java:293)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.finishRefresh(EmbeddedWebApplicationContext.java:141)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:541)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:118)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:766)
+	at org.springframework.boot.SpringApplication.createAndRefreshContext(SpringApplication.java:361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1191)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1180)
+	at com.softisland.AppController.main(AppController.java:11)
+Caused by: java.lang.IllegalStateException: Tomcat connector in failed state
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.start(TomcatEmbeddedServletContainer.java:159)
+	... 10 more
+2016-09-13 16:21:27,066  INFO AppController:48 - Starting AppController on SO032YZZVSMQVSS with PID 6920 (D:\eclipsejavaee\csgo_robot\target\classes started by Administrator in D:\eclipsejavaee\csgo_robot)
+  2016-09-13 16:21:27,067  INFO AppController:666 - No active profile set, falling back to default profiles: default
+  2016-09-13 16:21:27,096  INFO AnnotationConfigEmbeddedWebApplicationContext:578 - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@86be70a: startup date [Tue Sep 13 16:21:27 CST 2016]; root of context hierarchy
+  2016-09-13 16:21:27,318  INFO Version:17 - HV000001: Hibernate Validator 5.2.2.Final
+  2016-09-13 16:21:27,504  INFO DefaultListableBeanFactory:839 - Overriding bean definition for bean 'beanNameViewResolver' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+  2016-09-13 16:21:27,731  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:328 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$a5cdb814] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+  2016-09-13 16:21:28,232  INFO TomcatEmbeddedServletContainer:81 - Tomcat initialized with port(s): 8080 (http)
+  2016-09-13 16:21:28,242  INFO StandardService:180 - Starting service Tomcat
+  2016-09-13 16:21:28,243  INFO StandardEngine:180 - Starting Servlet Engine: Apache Tomcat/8.0.30
+  2016-09-13 16:21:28,516  INFO TldScanner:180 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+  2016-09-13 16:21:28,519  INFO [/]:180 - Initializing Spring embedded WebApplicationContext
+  2016-09-13 16:21:28,519  INFO ContextLoader:272 - Root WebApplicationContext: initialization completed in 1425 ms
+  2016-09-13 16:21:28,841  INFO ServletRegistrationBean:189 - Mapping servlet: 'dispatcherServlet' to [/]
+  2016-09-13 16:21:28,844  INFO FilterRegistrationBean:258 - Mapping filter: 'characterEncodingFilter' to: [/*]
+  2016-09-13 16:21:28,845  INFO FilterRegistrationBean:258 - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+  2016-09-13 16:21:28,845  INFO FilterRegistrationBean:258 - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+  2016-09-13 16:21:28,846  INFO FilterRegistrationBean:258 - Mapping filter: 'requestContextFilter' to: [/*]
+  2016-09-13 16:21:29,279  INFO RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@86be70a: startup date [Tue Sep 13 16:21:27 CST 2016]; root of context hierarchy
+  2016-09-13 16:21:29,325  INFO RequestMappingHandlerMapping:527 - Mapped "{[/hello]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.Hello()
+  2016-09-13 16:21:29,327  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+  2016-09-13 16:21:29,327  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+  2016-09-13 16:21:29,350  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-09-13 16:21:29,350  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-09-13 16:21:29,376  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-09-13 16:21:29,495  INFO AnnotationMBeanExporter:431 - Registering beans for JMX exposure on startup
+  2016-09-13 16:21:29,519  INFO Http11NioProtocol:180 - Initializing ProtocolHandler ["http-nio-8080"]
+  2016-09-13 16:21:29,525  INFO Http11NioProtocol:180 - Starting ProtocolHandler ["http-nio-8080"]
+  2016-09-13 16:21:29,535  INFO NioSelectorPool:180 - Using a shared selector for servlet write/read
+  2016-09-13 16:21:29,554  INFO TomcatEmbeddedServletContainer:162 - Tomcat started on port(s): 8080 (http)
+  2016-09-13 16:21:29,557  INFO AppController:57 - Started AppController in 2.67 seconds (JVM running for 2.924)
+  2016-09-13 16:21:30,507 ERROR TaskUtils$LoggingErrorHandler:95 - Unexpected error occurred in scheduled task.
+  java.lang.NullPointerException
+	at com.softisland.aspect.WebLogAspect.doBefore(WebLogAspect.java:30)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:603)
+	at org.springframework.aop.aspectj.AspectJMethodBeforeAdvice.before(AspectJMethodBeforeAdvice.java:40)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:51)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.adapter.AfterReturningAdviceInterceptor.invoke(AfterReturningAdviceInterceptor.java:52)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at com.softisland.controller.ScheduleController$$EnhancerBySpringCGLIB$$5c092abe.start(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:308)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:294)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+2016-09-13 16:21:51,348  INFO [/]:180 - Initializing Spring FrameworkServlet 'dispatcherServlet'
+  2016-09-13 16:21:51,348  INFO DispatcherServlet:489 - FrameworkServlet 'dispatcherServlet': initialization started
+  2016-09-13 16:21:51,360  INFO DispatcherServlet:508 - FrameworkServlet 'dispatcherServlet': initialization completed in 12 ms
+  2016-09-13 16:21:51,379  INFO WebLogAspect:33 - URL : http://localhost:8080/hello
+  2016-09-13 16:21:51,379  INFO WebLogAspect:34 - HTTP_METHOD : GET
+  2016-09-13 16:21:51,380  INFO WebLogAspect:35 - IP : 0:0:0:0:0:0:0:1
+  2016-09-13 16:21:51,381  INFO WebLogAspect:36 - CLASS_METHOD : com.softisland.controller.TestConcller.Hello
+  2016-09-13 16:21:51,381  INFO WebLogAspect:37 - ARGS : []
+  2016-09-13 16:21:51,607  INFO WebLogAspect:44 - RESPONSE : ModelAndView: reference to view with name 'welcome'; model is null
+  2016-09-13 16:22:17,265  INFO AppController:48 - Starting AppController on SO032YZZVSMQVSS with PID 6552 (D:\eclipsejavaee\csgo_robot\target\classes started by Administrator in D:\eclipsejavaee\csgo_robot)
+  2016-09-13 16:22:17,267  INFO AppController:666 - No active profile set, falling back to default profiles: default
+  2016-09-13 16:22:17,305  INFO AnnotationConfigEmbeddedWebApplicationContext:578 - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4e50c791: startup date [Tue Sep 13 16:22:17 CST 2016]; root of context hierarchy
+  2016-09-13 16:22:17,495  INFO Version:17 - HV000001: Hibernate Validator 5.2.2.Final
+  2016-09-13 16:22:17,843  INFO DefaultListableBeanFactory:839 - Overriding bean definition for bean 'beanNameViewResolver' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+  2016-09-13 16:22:18,130  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:328 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$1143635a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+  2016-09-13 16:22:18,736  INFO TomcatEmbeddedServletContainer:81 - Tomcat initialized with port(s): 8080 (http)
+  2016-09-13 16:22:18,749  INFO StandardService:180 - Starting service Tomcat
+  2016-09-13 16:22:18,750  INFO StandardEngine:180 - Starting Servlet Engine: Apache Tomcat/8.0.30
+  2016-09-13 16:22:18,992  INFO TldScanner:180 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+  2016-09-13 16:22:18,994  INFO [/]:180 - Initializing Spring embedded WebApplicationContext
+  2016-09-13 16:22:18,994  INFO ContextLoader:272 - Root WebApplicationContext: initialization completed in 1692 ms
+  2016-09-13 16:22:19,339  INFO ServletRegistrationBean:189 - Mapping servlet: 'dispatcherServlet' to [/]
+  2016-09-13 16:22:19,343  INFO FilterRegistrationBean:258 - Mapping filter: 'characterEncodingFilter' to: [/*]
+  2016-09-13 16:22:19,344  INFO FilterRegistrationBean:258 - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+  2016-09-13 16:22:19,344  INFO FilterRegistrationBean:258 - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+  2016-09-13 16:22:19,345  INFO FilterRegistrationBean:258 - Mapping filter: 'requestContextFilter' to: [/*]
+  2016-09-13 16:22:19,909  INFO RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4e50c791: startup date [Tue Sep 13 16:22:17 CST 2016]; root of context hierarchy
+  2016-09-13 16:22:19,969  INFO RequestMappingHandlerMapping:527 - Mapped "{[/hello]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.Hello()
+  2016-09-13 16:22:19,971  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+  2016-09-13 16:22:19,972  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+  2016-09-13 16:22:20,010  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-09-13 16:22:20,010  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-09-13 16:22:20,049  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-09-13 16:22:20,283  INFO AnnotationMBeanExporter:431 - Registering beans for JMX exposure on startup
+  2016-09-13 16:22:20,315  INFO Http11NioProtocol:180 - Initializing ProtocolHandler ["http-nio-8080"]
+  2016-09-13 16:22:20,322  INFO Http11NioProtocol:180 - Starting ProtocolHandler ["http-nio-8080"]
+  2016-09-13 16:22:20,344  INFO NioSelectorPool:180 - Using a shared selector for servlet write/read
+  2016-09-13 16:22:20,372  INFO TomcatEmbeddedServletContainer:162 - Tomcat started on port(s): 8080 (http)
+  2016-09-13 16:22:20,376  INFO AppController:57 - Started AppController in 3.348 seconds (JVM running for 3.665)
+  2016-09-13 16:22:29,319 ERROR TaskUtils$LoggingErrorHandler:95 - Unexpected error occurred in scheduled task.
+  java.lang.NullPointerException
+	at com.softisland.aspect.WebLogAspect.doBefore(WebLogAspect.java:30)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:621)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:603)
+	at org.springframework.aop.aspectj.AspectJMethodBeforeAdvice.before(AspectJMethodBeforeAdvice.java:40)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:51)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.adapter.AfterReturningAdviceInterceptor.invoke(AfterReturningAdviceInterceptor.java:52)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:655)
+	at com.softisland.controller.ScheduleController$$EnhancerBySpringCGLIB$$34b2154e.start(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:308)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:294)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+2016-09-13 16:22:37,149  INFO [/]:180 - Initializing Spring FrameworkServlet 'dispatcherServlet'
+  2016-09-13 16:22:37,150  INFO DispatcherServlet:489 - FrameworkServlet 'dispatcherServlet': initialization started
+  2016-09-13 16:22:37,165  INFO DispatcherServlet:508 - FrameworkServlet 'dispatcherServlet': initialization completed in 15 ms
+  2016-09-13 16:22:45,397  INFO WebLogAspect:33 - URL : http://localhost:8080/hello
+  2016-09-13 16:22:48,987  INFO WebLogAspect:34 - HTTP_METHOD : GET
+  2016-09-13 16:22:50,650  INFO WebLogAspect:35 - IP : 0:0:0:0:0:0:0:1
+  2016-09-13 16:22:52,391  INFO WebLogAspect:36 - CLASS_METHOD : com.softisland.controller.TestConcller.Hello
+  2016-09-13 16:22:55,923  INFO WebLogAspect:37 - ARGS : []
+  2016-09-13 16:23:10,042  INFO WebLogAspect:44 - RESPONSE : ModelAndView: reference to view with name 'welcome'; model is null
+  2016-09-13 16:25:52,602  INFO AppController:48 - Starting AppController on SO032YZZVSMQVSS with PID 6640 (D:\eclipsejavaee\csgo_robot\target\classes started by Administrator in D:\eclipsejavaee\csgo_robot)
+  2016-09-13 16:25:52,604  INFO AppController:666 - No active profile set, falling back to default profiles: default
+  2016-09-13 16:25:52,634  INFO AnnotationConfigEmbeddedWebApplicationContext:578 - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@86be70a: startup date [Tue Sep 13 16:25:52 CST 2016]; root of context hierarchy
+  2016-09-13 16:25:52,824  INFO Version:17 - HV000001: Hibernate Validator 5.2.2.Final
+  2016-09-13 16:25:53,068  INFO DefaultListableBeanFactory:839 - Overriding bean definition for bean 'beanNameViewResolver' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+  2016-09-13 16:25:53,299  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:328 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$fd01d9d1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+  2016-09-13 16:25:53,780  INFO TomcatEmbeddedServletContainer:81 - Tomcat initialized with port(s): 8080 (http)
+  2016-09-13 16:25:53,791  INFO StandardService:180 - Starting service Tomcat
+  2016-09-13 16:25:53,792  INFO StandardEngine:180 - Starting Servlet Engine: Apache Tomcat/8.0.30
+  2016-09-13 16:25:54,014  INFO TldScanner:180 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+  2016-09-13 16:25:54,016  INFO [/]:180 - Initializing Spring embedded WebApplicationContext
+  2016-09-13 16:25:54,016  INFO ContextLoader:272 - Root WebApplicationContext: initialization completed in 1384 ms
+  2016-09-13 16:25:54,309  INFO ServletRegistrationBean:189 - Mapping servlet: 'dispatcherServlet' to [/]
+  2016-09-13 16:25:54,311  INFO FilterRegistrationBean:258 - Mapping filter: 'characterEncodingFilter' to: [/*]
+  2016-09-13 16:25:54,312  INFO FilterRegistrationBean:258 - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+  2016-09-13 16:25:54,312  INFO FilterRegistrationBean:258 - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+  2016-09-13 16:25:54,313  INFO FilterRegistrationBean:258 - Mapping filter: 'requestContextFilter' to: [/*]
+  2016-09-13 16:25:54,620  INFO RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@86be70a: startup date [Tue Sep 13 16:25:52 CST 2016]; root of context hierarchy
+  2016-09-13 16:25:54,664  INFO RequestMappingHandlerMapping:527 - Mapped "{[/hello]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.Hello()
+  2016-09-13 16:25:54,666  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+  2016-09-13 16:25:54,666  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+  2016-09-13 16:25:54,689  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-09-13 16:25:54,690  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-09-13 16:25:54,716  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2016-09-13 16:25:54,850  INFO AnnotationMBeanExporter:431 - Registering beans for JMX exposure on startup
+  2016-09-13 16:25:54,876  INFO Http11NioProtocol:180 - Initializing ProtocolHandler ["http-nio-8080"]
+  2016-09-13 16:25:54,881  INFO Http11NioProtocol:180 - Starting ProtocolHandler ["http-nio-8080"]
+  2016-09-13 16:25:54,893  INFO NioSelectorPool:180 - Using a shared selector for servlet write/read
+  2016-09-13 16:25:54,911  INFO TomcatEmbeddedServletContainer:162 - Tomcat started on port(s): 8080 (http)
+  2016-09-13 16:25:54,914  INFO AppController:57 - Started AppController in 2.491 seconds (JVM running for 2.738)
+  2016-09-13 16:25:55,861  INFO ScheduleController:30 - http://steamcommunity.com/profiles/robotid/inventory/json/730/2/
+  2016-09-13 16:26:01,889  INFO [/]:180 - Initializing Spring FrameworkServlet 'dispatcherServlet'
+  2016-09-13 16:26:01,889  INFO DispatcherServlet:489 - FrameworkServlet 'dispatcherServlet': initialization started
+  2016-09-13 16:26:01,903  INFO DispatcherServlet:508 - FrameworkServlet 'dispatcherServlet': initialization completed in 13 ms
+  2016-09-13 16:26:01,923  INFO WebLogAspect:33 - URL : http://localhost:8080/hello
+  2016-09-13 16:26:01,923  INFO WebLogAspect:34 - HTTP_METHOD : GET
+  2016-09-13 16:26:01,924  INFO WebLogAspect:35 - IP : 0:0:0:0:0:0:0:1
+  2016-09-13 16:26:01,925  INFO WebLogAspect:36 - CLASS_METHOD : com.softisland.controller.TestConcller.Hello
+  2016-09-13 16:26:01,925  INFO WebLogAspect:37 - ARGS : []
+  2016-09-13 16:26:01,930  INFO WebLogAspect:44 - RESPONSE : ModelAndView: reference to view with name 'welcome'; model is null
+  2016-09-13 16:30:56,082  INFO ScheduleController:30 - http://steamcommunity.com/profiles/robotid/inventory/json/730/2/
+  2016-09-13 16:35:56,089  INFO ScheduleController:30 - http://steamcommunity.com/profiles/robotid/inventory/json/730/2/
+  2016-09-13 16:40:56,095  INFO ScheduleController:30 - http://steamcommunity.com/profiles/robotid/inventory/json/730/2/
+  2016-09-13 16:45:56,101  INFO ScheduleController:30 - http://steamcommunity.com/profiles/robotid/inventory/json/730/2/
+  2016-09-13 16:50:56,109  INFO ScheduleController:30 - http://steamcommunity.com/profiles/robotid/inventory/json/730/2/
+  2016-09-13 16:55:56,117  INFO ScheduleController:30 - http://steamcommunity.com/profiles/robotid/inventory/json/730/2/
+  2016-09-13 17:00:56,123  INFO ScheduleController:30 - http://steamcommunity.com/profiles/robotid/inventory/json/730/2/
+  2016-09-13 17:05:56,130  INFO ScheduleController:30 - http://steamcommunity.com/profiles/robotid/inventory/json/730/2/
+  

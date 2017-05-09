@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BoxMapper">
+
+	<select id="queryBoxlistPage" parameterType="Page" resultType="pd">
+		select b.name,b.`status`,b.price,b.id,b.pic,b.rank,b.n_value,DATE_FORMAT(b.created,'%Y-%m-%d %T') as created,
+		(select count(1) from unpack_box_item i
+		where i.box_id = b.id and i.`status` = 1
+		) as product_number
+		from unpack_box b
+		where 1 = 1
+		<if test="pd.status!=null and pd.status!='' and pd.status!='-1'">
+		    and b.`status` = #{pd.status}
+		</if>
+        <if test="pd.name!=null and pd.name!=''">
+        	and b.name  like CONCAT(CONCAT('%',#{pd.name}),'%')
+        </if>	
+		ORDER BY
+			b.created desc
+	</select>
+	
+	<select id="getBoxById" parameterType="pd" resultType="pd">
+		select * from unpack_box
+		where id = ${id}
+	</select>
+	
+	<update id="updateBox" parameterType="pd">
+		update unpack_box set name = #{name}, price = #{price}, pic = #{pic}, rank = ${rank}, n_value = ${n_value}, `status` = ${status}, updated = #{updated}
+		where id = ${id}
+	</update>
+	
+	<insert id="saveBox" parameterType="pd">
+		insert into unpack_box(`name`,price,pic,rank,n_value,`status`,created) values (#{name}, #{price}, #{pic}, ${rank}, ${n_value}, ${status}, #{created})
+	</insert>
+	
+	<select id="queryProductCount" parameterType="pd" resultType="pd">
+		select count(id) as cnt from unpack_box_item
+		where box_id = ${box_id}
+		and `status` = ${status}
+	</select>
+	
+	<select id="queryProductList" parameterType="pd" resultType="pd">
+		select distinct name,tags_rarity_id
+		from product
+		where app_id = ${gameType}
+		and product_category_id = ${category}
+		and product_type_id = ${type}
+	</select>
+	
+	<select id="queryProductIconList" parameterType="pd" resultType="pd">
+		select (case icon_url_large when 'empty' then icon_url when '' then icon_url else icon_url_large end) as icon_url_large
+		from product
+		where app_id = ${gameType}
+		and product_category_id = ${category}
+		and product_type_id = ${type}
+		and name = &quot;${name}&quot;
+	</select>
+	
+	<select id="exteriorRarityList" parameterType="pd" resultType="pd">
+		select id,name
+		from product_tags
+		where app_id = ${gameType}
+		and category = #{category} 
+	</select>
+	
+	<select id="getRarityById" parameterType="pd" resultType="pd">
+		select * from product_tags
+		where id = ${id}
+	</select>
+	
+	<select id="getProductById" parameterType="pd" resultType="pd">
+		select * from unpack_box_item
+		where id = ${id}
+	</select>
+	
+	<select id="queryProductlistPage" parameterType="Page" resultType="pd">
+		select i.`name`,i.`status`,i.id,i.rank,DATE_FORMAT(i.created,'%Y-%m-%d %T') as created,pts.`name` as rarity, b.`name` as box, sum(p.sale_count) as sale_count
+		from unpack_box_item i, product_tags pts, unpack_box b, product p
+		where i.tags_rarity_id = pts.id
+		 and i.box_id = b.id
+		 and p.`name` = i.`name`
+		 and i.box_id = ${pd.box_id}
+		group by i.`name`,pts.`name`
+		ORDER BY
+			i.created desc
+	</select>
+	
+	<insert id="saveProduct" parameterType="pd">
+		insert into unpack_box_item(`name`,color,pic,rank,category_id,product_type_id,box_id,tags_rarity_id,`status`,created) values (#{name}, #{color}, #{pic}, ${rank}, ${category_id}, ${product_type_id}, ${box_id}, ${tags_rarity_id}, ${status}, #{created})
+	</insert>
+	
+	<select id="updateProduct" parameterType="pd">
+		update unpack_box_item set `name` = #{name}, color = #{color},  pic = #{pic}, rank = ${rank}, category_id = ${category_id}, product_type_id = ${product_type_id}, tags_rarity_id = ${tags_rarity_id}, `status` = ${status}, updated = #{updated}
+		where id = ${id}
+	</select>
+	
+	<select id="queryYValuelistPage" parameterType="Page" resultType="pd">
+		select old_value, new_value, operator_name, DATE_FORMAT(created,'%Y-%m-%d %T') as created
+		from unpack_handicap_log
+		order by created desc
+	</select>
+	
+	<insert id="saveYValue" parameterType="pd">
+		insert into unpack_handicap_log(old_value,new_value,operator_id,operator_name,created,purchase_rate) values (${old_value}, ${new_value}, #{operator_id}, #{operator_name}, #{created},#{purchase_rate})
+	</insert>
+	
+	<insert id="saveBoxYValue" parameterType="pd">
+		insert into unpack_handicap_log(box_id,old_value,new_value,operator_id,operator_name,created,purchase_rate,y_add_rate) values (${box_id},${old_value}, ${new_value}, #{operator_id}, #{operator_name}, #{created},#{purchase_rate},#{y_add_rate})
+	</insert>
+	
+	<select id="queryLastUpdateYValue" parameterType="pd" resultType="pd">
+		select new_value,purchase_rate 
+		from unpack_handicap_log
+		where created = (
+			select max(created) from unpack_handicap_log
+		) limit 0,1
+	</select>
+	
+	
+	<select id="queryBoxLastUpdateYValue" parameterType="pd" resultType="pd">
+		select new_value,purchase_rate,y_add_rate
+		from unpack_handicap_log
+		where created = (
+			select max(created) from unpack_handicap_log where box_id=#{box_id}
+		)  and box_id=#{box_id} limit 0,1
+	</select>
+	
+	<select id="queryOrderlistPage" parameterType="Page" resultType="pd">
+		select o.`status`, b.`name` as box_name, (case when (isnull(o.box_item_id) and o.`status` = 1) then concat('&lt;font color="red"&gt;【随机】&lt;/font&gt;',p.`name`) else p.`name` end) as product_name,
+			DATE_FORMAT(o.created,'%Y-%m-%d %T') as created, o.price, o.purchase_price, u.steam_uid, o.id
+		from unpack_order o left join unpack_box b on o.box_id = b.id
+			left join product_trade pt on o.product_trade_id = pt.id
+      		left join product p on p.id = pt.product_id
+			left join steam_user u on o.buyer_id = u.id
+		where 1 = 1
+		<if test="pd.steam_uid!=null  and pd.steam_uid!=''">
+			and u.steam_uid = #{pd.steam_uid}
+		</if>
+		<if test="pd.id!=null and pd.id!=''">
+			and o.id = #{pd.id}
+		</if>
+		<if test="pd.status!=null and pd.status!='' and pd.status!='-1'">
+			and o.`status` = ${pd.status}
+		</if>
+		<if test="pd.createEnd!=null and pd.createEnd!='' and pd.createStart!=null and pd.createStart!=''">
+            and o.created between #{pd.createStart} and #{pd.createEnd}                                      
+        </if>
+        order by o.created desc
+	</select>
+	
+	<select id="queryOrderStatistics" parameterType="pd" resultType="pd">
+		select sum(ifnull(o.price,0)) as s_total,
+			sum(ifnull(o.purchase_price,0)) as c_total,
+			sum(ifnull(o.price,0)-ifnull(o.purchase_price,0)) as p_total,
+			sum(ifnull(o.price,0)-ifnull(o.purchase_price,0))/sum(ifnull(o.price,0)) as pperc
+		from unpack_order o left join steam_user u on o.buyer_id = u.id
+		where o.`status` in (1)
+		<if test="steam_uid!=null  and steam_uid!=''">
+			and u.steam_uid = #{steam_uid}
+		</if>
+		<if test="id!=null and id!=''">
+			and o.id = #{id}
+		</if>
+		<if test="status!=null and status!='' and status!='-1'">
+			and o.`status` = ${status}
+		</if>
+		<if test="createEnd!=null and createEnd!='' and createStart!=null and createStart!=''">
+            and o.created between #{createStart} and #{createEnd}                                      
+        </if>
+        order by o.created desc
+	</select>
+	
+	<select id="queryOrderlist" parameterType="pd" resultType="pd">
+		select o.`status`, b.`name` as box_name, p.`name` as product_name,
+			DATE_FORMAT(o.created,'%Y-%m-%d %T') as created, o.price, o.purchase_price, u.steam_uid, o.id
+		from unpack_order o left join unpack_box b on o.box_id = b.id
+			left join product_trade pt on o.product_trade_id = pt.id
+      		left join product p on p.id = pt.product_id
+			left join steam_user u on o.buyer_id = u.id
+		where 1 = 1
+		<if test="steam_uid!=null  and steam_uid!=''">
+			and u.steam_uid = #{steam_uid}
+		</if>
+		<if test="id!=null and id!=''">
+			and o.id = #{id}
+		</if>
+		<if test="status!=null and status!='' and status!='-1'">
+			and o.`status` = ${status}
+		</if>
+		<if test="createEnd!=null and createEnd!='' and createStart!=null and createStart!=''">
+            and o.created between #{createStart} and #{createEnd}                                      
+        </if>
+        order by o.created desc
+	</select>
+	
+	<!-- 查询10分钟之前的数据 -->
+	<select id="getMinusPrice" parameterType="pd" resultType="pd">
+		 select price,purchase_price from unpack_order where created >=#{lastMIn} and created &lt;#{current}  and `status`=1
+	</select>
+	
+	
+	<!-- 查询每个箱子10分钟之前的数据 -->
+	<select id="getBoxMinusPrice" parameterType="pd" resultType="pd">
+		 select sum(purchase_price) as purchase_price,box_id from unpack_order where created >=#{lastMIn} and created &lt;#{current}  and `status`=1 group by box_id
+	</select>
+	
+	
+	<!-- 查询出为空的箱子 -->
+	<select id="getNullBox" parameterType="pd" resultType="pd">
+	 select o.box_id,count(o.id) from unpack_order o left join unpack_box b on o.box_id=b.id where b.`status`=1 and o.`status`=1 and o.created >=#{lastHou} and o.created &lt;#{current} and box_item_id is null group by o.box_id having count(o.id)>4
+	</select>
+	
+	<!-- 下架该箱子 -->
+	<update id="dowmBox" parameterType="pd">
+	 update unpack_box set `status`=0,updated=NOW() where id=#{box_id}
+	</update>
+	
+	
+	<update id="updateBoxYValue" parameterType="pd">
+		update unpack_box set y_value=#{new_value},updated=NOW() where id=#{box_id} 
+	</update>
+</mapper>

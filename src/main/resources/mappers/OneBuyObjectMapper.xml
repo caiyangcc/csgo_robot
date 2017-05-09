@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OneBuyObjectMapper">
+	
+	<!-- 查询产品品牌 -->
+	<select id="getProductBrandlistPage" parameterType="Page" resultType="pd">
+		
+		select id,name,is_enable,sort,icon_url,date_created from  treasure_brand where 1=1
+		<if test="pd.name != null and pd.name != ''"><!-- 标题检索 -->
+			and name like CONCAT(CONCAT('%', #{pd.name}),'%') 
+		</if>
+		
+		<if test="pd.clomnName==null or pd.clomnName==''">
+		  order by date_updated desc
+		</if>
+		
+		<if test="pd.clomnName!=null and pd.clomnName!=''">
+		   ORDER BY ${pd.clomnName}
+		</if>
+		<if test="pd.clomnSequence!=null and pd.clomnSequence!='' and pd.clomnSequence==0">
+		  desc
+		</if>
+		<if test="pd.clomnSequence!=null and pd.clomnSequence!='' and pd.clomnSequence==1">
+		  asc
+		</if>
+		
+		
+	</select>
+	<!-- 保存产品品牌 -->
+	<insert id="saveBrand" parameterType="pd">
+		insert into treasure_brand (
+			name,
+			is_enable,
+			sort,
+			icon_url,
+			date_created,
+			date_updated
+		) values (
+			#{name},
+			#{is_enable},
+			#{sort},
+			#{icon_url},
+			NOW(),
+			NOW()
+			)
+	</insert>
+	
+	<!-- 根据id查询单个品牌-->
+	<select id="findById" parameterType="pd" resultType="pd">
+	  select id,name,is_enable,sort,icon_url,date_created from  treasure_brand where id=#{id}
+	</select>
+	<!-- 修改产品品牌 -->
+	<update id="updateBrand" parameterType="pd">
+	 update treasure_brand set name=#{name},is_enable=#{is_enable},sort=#{sort},
+	  <if test="icon_url != null and icon_url != ''">
+	 icon_url=#{icon_url},
+	 </if>
+	 date_updated=NOW()
+	 where id=#{id}
+	</update>
+	<!-- 删除产品品牌 -->
+	<delete id="deleteBrand" parameterType="pd">
+	   delete from treasure_brand where id=#{id}
+	</delete>
+	<!-- 是否禁用产品品牌 -->
+	<update id="switchBrand" parameterType="pd">
+		update treasure_brand set is_enable=#{value} where id=#{id}
+	</update>
+	
+	<!-- 查询该品牌是否已经被使用 -->
+	<select id="checkUsedBrand" parameterType="pd" resultType="pd">
+	  select * from treasure_category_brand where treasure_brand_id=#{id}
+	</select>
+	
+	<!-- 查询产品类别 -->
+	<select id="getProductCategorylistPage" parameterType="Page" resultType="pd">
+		select c.id ,c.name,c.is_enable,c.sort,c.icon_url,c.date_created
+		 from  treasure_category c where c.type=3
+		<if test="pd.name != null and pd.name != ''"><!-- 标题检索 -->
+			and c.name like CONCAT(CONCAT('%', #{pd.name}),'%') 
+		</if>
+		
+		
+		<if test="pd.clomnName==null or pd.clomnName==''">
+		  order by c.date_updated desc
+		</if>
+		
+		<if test="pd.clomnName!=null and pd.clomnName!=''">
+		   ORDER BY ${pd.clomnName}
+		</if>
+		<if test="pd.clomnSequence!=null and pd.clomnSequence!='' and pd.clomnSequence==0">
+		  desc
+		</if>
+		<if test="pd.clomnSequence!=null and pd.clomnSequence!='' and pd.clomnSequence==1">
+		  asc
+		</if>
+	</select>
+	
+	<!-- 查询类别对应的所有品牌 -->
+	<select id="getProductCategory_Brand" parameterType="Page" resultType="pd">
+		select cb.treasure_category_id,b.id as bid,b.name as bname
+		 from treasure_category_brand
+		cb,treasure_brand b where cb.treasure_brand_id=b.id
+	</select>
+	
+	<select id="getAllBrandForCategory" parameterType="Page" resultType="pd">
+		
+		select id,name,is_enable,sort,icon_url,date_created from  treasure_brand
+		where is_enable=1
+		
+		order by sort
+	</select>
+	
+	<!-- 查询品类里面实物Id的最大值 -->
+	<select id="getMaxId" resultType="int">
+	 select IFNULL(max(id),50) from treasure_category where type=3 and icon_url is not null
+	</select>
+	
+	<!-- 新增品类 -->	
+	<insert id="saveCategory" parameterType="pd">
+		insert into treasure_category (
+		    id,
+			name,
+			is_enable,
+			sort,
+			type,
+			icon_url,
+			date_created,
+			date_updated
+		) values (
+		    ${id},
+			#{name},
+			#{is_enable},
+			#{sort},
+			#{type},
+			#{icon_url},
+			NOW(),
+			NOW()
+			)
+	</insert>
+	<!-- 新增品类品牌中间表 -->
+	<insert id="savecategory_brand" parameterType="java.util.List" flushCache="false">
+			INSERT INTO treasure_category_brand (
+			    treasure_brand_id,treasure_category_id,is_enable,date_created,date_updated
+			)
+			VALUES
+			<foreach collection="list" item="item" index="index" separator="," >  
+				(
+				#{item.bid},
+				#{item.cid},
+				1,
+				NOW(),
+				NOW()
+				)
+            </foreach>
+	</insert>
+	
+		<!-- 根据id查询产品类别 -->
+	<select id="getProductCategoryById" parameterType="Page" resultType="pd">
+		select c.id ,c.name,c.is_enable,c.sort,c.icon_url,c.date_created
+		 from  treasure_category c where c.type=3 and c.id=#{id}
+		
+	</select>
+	
+	<!-- 根据id查询类别对应的所有品牌 -->
+	<select id="getProductCategory_BrandById" parameterType="Page" resultType="pd">
+		select cb.treasure_category_id,b.id as bid,b.name as bname
+		 from treasure_category_brand
+		cb,treasure_brand b where cb.treasure_brand_id=b.id and cb.treasure_category_id=#{id} and b.is_enable=1
+	</select>
+			
+	<!-- 修改产品品类 -->
+	<update id="updateCategory" parameterType="pd">
+	 update treasure_category set name=#{name},is_enable=#{is_enable},sort=#{sort},
+	 <if test="icon_url != null and icon_url != ''">
+	 icon_url=#{icon_url},
+	 </if>
+	 date_updated=NOW()
+	 where id=#{id}
+	</update>
+		
+	<!-- 删除品牌品类中间表 -->
+	<delete id="delete_Category_Brand" parameterType="pd">
+	 delete from treasure_category_brand where treasure_category_id=#{id}
+	</delete>
+	
+	<!-- 是否禁用产品品类 -->
+	<update id="switchCategory" parameterType="pd">
+		update treasure_category set is_enable=#{value} where id=#{id}
+	</update>
+	
+	<!-- 查询所有的商品 -->	
+	<select id="getProductListlistPage" parameterType="Page" resultType="pd">	
+	select p.id,p.issue,p.putaway_date,p.name,p.total_price,p.buy_total_num,p.subscribe_num,p.open_date,money_purchase,f.treasure_id as orderId,p.unit_price,
+		CONCAT(case when TIMESTAMPDIFF(DAY,NOW(),p.maturity_date) &lt;0 then 0 else TIMESTAMPDIFF(DAY,NOW(),p.maturity_date) end , '天', 
+			 case when MOD(TIMESTAMPDIFF(SECOND,NOW(),p.maturity_date),86400)&lt;0 then 0 else MOD(TIMESTAMPDIFF(SECOND,NOW(),p.maturity_date),86400) end  div 3600, '小时',
+			 case when MOD(MOD(TIMESTAMPDIFF(SECOND,NOW(),p.maturity_date),86400), 3600)&lt;0 then 0 else MOD(MOD(TIMESTAMPDIFF(SECOND,NOW(),p.maturity_date),86400), 3600) end div 60, '分')
+			 as maturityDate,p.status,
+			 u.batch_code,
+			 d.show_time
+			 from treasure_product p 
+			 left join treasure_autoup u on p.id =u.product_id
+			 left join treasure_date_autoup d on p.id=d.treasure_product_id
+			 left join (select DISTINCT treasure_id from  `treasure_order` where status=3) f on p.id = f.treasure_id 
+			 where treasure_type=2
+		<if test="pd.issue != null and pd.issue != ''">
+			and p.issue =#{pd.issue} 
+		</if>
+		<if test="pd.status !=null and pd.status!='' and pd.status!='-1' and pd.status!='-2'">
+			and p.status =#{pd.status}
+		</if>
+			
+		<if test="pd.money_purchase !=null and pd.money_purchase!='' and pd.money_purchase!='-1' and pd.money_purchase!='-2'">
+			and p.money_purchase =#{pd.money_purchase}
+		</if>
+			
+		  <if test="pd.startTime!=null and pd.startTime!='' and pd.endTime!=null and pd.endTime!=''">
+            and p.putaway_date between #{pd.startTime} and #{pd.endTime} and status!=2
+        </if>
+         <if test="pd.openstartTime!=null and pd.openstartTime!='' and pd.openendTime!=null and pd.openendTime!=''">
+            and p.open_date between #{pd.openstartTime} and #{pd.openendTime}
+        </if>
+		order by p.date_updated desc
+	</select>
+	<!-- 查询产品类别不分页 -->
+	<select id="getAllCategory" parameterType="Page" resultType="pd">
+		select c.id ,c.name,c.is_enable,c.sort,c.icon_url,c.date_created
+		 from  treasure_category c where c.type=3 and c.is_enable=1
+		order by c.date_updated desc
+	</select>
+	
+		<!-- 插入商品 -->
+	<insert id="saveProduct" parameterType="pd">
+		insert into treasure_product (
+			steam_uid,
+			issue,
+			name,
+			img_url,
+			total_price,
+			unit_price,
+			buy_total_num,
+			begin_buy_num,
+			subscribe_num,
+			residue_num,
+			putaway_date,
+			maturity_date,
+			treasure_type,
+			treasure_category_id,
+			description,
+			date_created,
+			date_updated,
+			status,
+			money_purchase,
+			astrict_total_num,
+			treasure_brand_id,
+			manufacturers,
+			advise_price,
+			app_id,
+			manage_fee,
+			manage_fee_rate,
+			seller_type
+		) values (
+			#{steam_uid},
+			#{issue},
+			#{name},
+			#{img_url},
+			#{total_price},
+			#{unit_price},
+			#{buy_total_num},
+			#{begin_buy_num},
+			#{subscribe_num},
+			#{residue_num},
+			#{putaway_date},
+			#{maturity_date},
+			#{treasure_type},
+			#{treasure_category_id},
+			#{description},
+			#{date_created},
+			#{date_updated},
+			#{status},
+			#{money_purchase},
+			#{astrict_total_num},
+			#{treasure_brand_id},
+			#{manufacturers},
+			#{advise_price},
+			#{app_id},
+			#{manage_fee},
+			#{manage_fee_rate},
+			#{seller_type}
+			)
+	</insert>
+	
+	<!-- 改变商品状态上架 -->
+	<update id="upProduct" parameterType="pd">
+	 update treasure_product set status =#{status},
+	 issue=#{issue},
+	 putaway_date=#{putaway_date},
+	 maturity_date=#{maturity_date},
+	 date_updated=#{date_updated},
+	 residue_num=#{residue_num},
+	 subscribe_num=#{subscribe_num}	
+	 where id=#{id} and status=#{oldstatus}
+	</update>
+	
+	
+	<!-- 改变商品状态下架 -->
+	<update id="downProduct" parameterType="pd">
+	 update treasure_product set status =#{status},date_updated=#{date_updated}	
+	 where id=#{id} and status=#{oldstatus}
+	</update>
+	
+	<!-- 查询商品信息 -->
+	<select id="getProductInfo" parameterType="pd" resultType="pd">
+   SELECT p.*, c. NAME AS cname,b. NAME AS bname,o.buyer_steam_uid
+    FROM
+	treasure_product p
+ left join treasure_category c on p.treasure_category_id = c.id
+	left join treasure_brand b on p.treasure_brand_id = b.id
+	left join (select * from `treasure_order` where treasure_status=2 and status=1) o on p.id=o.treasure_id
+WHERE
+ p.id = #{id}
+	</select>
+	
+	<!-- 修改商品 -->
+		<update id="editProduct" parameterType="pd">
+	 	update treasure_product set name=#{name},img_url=#{img_url},total_price=#{total_price},
+	 	buy_total_num=#{buy_total_num},
+	 	begin_buy_num=#{begin_buy_num},
+	 	subscribe_num=#{subscribe_num},
+	 	residue_num=#{residue_num},
+	 	treasure_category_id=#{treasure_category_id},
+	 	description=#{description},
+	 	date_updated=#{date_updated},
+	 	astrict_total_num=#{astrict_total_num},
+	 	treasure_brand_id=#{treasure_brand_id},
+	 	manufacturers=#{manufacturers},
+	 	advise_price=#{advise_price},
+	 	money_purchase=#{money_purchase},
+	 	unit_price=#{unit_price}
+	 	where id=#{id}
+	 	and status=2
+	</update>
+	
+	<!--查询商品发货  -->
+	<select id="getProductDeliverylistPage" parameterType="Page" resultType="pd">
+		select o.* from treasure_order o left join treasure_product p on o.treasure_id=p.id where o.conversion_status!=1 and p.treasure_type=2
+		and o.status=1
+			<if test="pd.treasure_issue != null and pd.treasure_issue != ''">
+			and o.treasure_issue =#{pd.treasure_issue}
+			</if>
+			
+			<if test="pd.buyer_steam_uid != null and pd.buyer_steam_uid != ''">
+			and o.buyer_steam_uid =#{pd.buyer_steam_uid}
+			</if>
+			
+			<if test="pd.conversion_status !=null and pd.conversion_status!='' and pd.conversion_status!='-1' and pd.conversion_status!='-2'">
+			and o.conversion_status =#{pd.conversion_status}
+			</if>
+			
+		<if test="pd.startTime!=null and pd.startTime!='' and pd.endTime!=null and pd.endTime!=''">
+            and o.date_created between #{pd.startTime} and #{pd.endTime}
+        </if>
+    
+		order by date_updated desc
+	</select>
+		
+	<!-- 确认商品发货 -->
+	<update id="confirmProduct" parameterType="pd">
+		update treasure_order set conversion_status=#{conversion_status}, date_updated=NOW() where id=#{id} and conversion_status=#{oldstatus}
+	</update>
+	
+	<!-- 录入物流信息 -->
+	<update id="recordProduct" parameterType="pd">
+		update treasure_order set conversion_status=#{conversion_status}, remark=#{remark},date_updated=NOW() where id=#{id} and conversion_status=#{oldstatus}
+	</update>
+	
+	<!-- 查询单个信息 -->
+	
+	<select id="getProductRemarkInfo" parameterType="pd" resultType="pd">
+		select p.remark from treasure_order p where p.id=#{id}
+	</select>
+	
+	
+	<!-- 查询商品发货日志 -->
+	<select id="getProductDeliveryLog" parameterType="Page" resultType="pd">
+	 select l.*,u.name from sys_log l,sys_user u where l.user_id=u.user_id and modle_number=30 and table_name='treasure_order' and table_id=#{pd.id}
+	 order by l.create_date
+	</select>
+	
+	<!-- 查询品牌是否唯一 -->
+	<select id="checkBrand" parameterType="pd" resultType="pd">
+	 select name from treasure_brand where name=#{name}
+	</select>
+	
+	<!-- 查询品类是否唯一 -->
+	<select id="checkCategory" parameterType="pd" resultType="pd">
+	 select name from treasure_category where name=#{name}
+	</select>
+	
+	<!-- 验证批次号是否唯一 -->
+	<select id="checkBatchCode" parameterType="pd" resultType="pd">
+	 	select batch_code from treasure_autoup where batch_code=#{batch_code}
+	</select>
+	
+	<!-- 插入上架的表 -->
+	<insert id="autoUpProduct" parameterType="pd">
+	 insert into treasure_autoup(batch_code,product_id,create_time,update_time,create_id,create_name,is_up)
+	 values(#{batch_code},#{product_id},#{create_time},#{update_time},#{create_id},#{create_name},#{is_up})
+	</insert>
+	
+	<!-- 查询该商品是否已经自动上过架 -->
+	<select id="checkPid" parameterType="pd" resultType="pd">
+		select id from treasure_autoup where product_id=#{product_id}
+	</select>
+	
+	<!-- 查询所有批次 -->
+	<select id="getBatchListlistPage" parameterType="Page" resultType="pd">
+		select a.id as priId,a.batch_code,a.create_time,p.id,p.name,p.issue,p.total_price,p.buy_total_num,p.status from treasure_autoup a,treasure_product p where a.product_id=p.id		
+			<if test="pd.batch_code != null and pd.batch_code != ''">
+			and a.batch_code =#{pd.batch_code}
+			</if>
+				<if test="pd.id != null and pd.id != ''">
+			and p.id =#{pd.id}
+			</if>		
+			order by a.create_time desc
+	</select>
+	
+	<!-- 验证该批次是否存在 -->
+	<select id="checkBatch" parameterType="pd" resultType="pd">
+		select batch_code from treasure_autoup where batch_code=#{batch_code}
+	</select>
+	
+	
+	<!-- 验证该商品是否存在以及是下架状态 -->
+	<select id="checkId" parameterType="pd" resultType="pd">
+		 select id,treasure_type from treasure_product where id=#{id} and status=2
+	</select>
+	
+	<!-- 验证该商品是否存在于其他批次 -->
+		<select id="checkExistBratch" parameterType="pd" resultType="pd">
+		 select * from treasure_autoup where product_id=#{id}
+		</select>
+		
+	<!-- 删除批次绑定 -->
+		<delete id="deleteBatch" parameterType="pd">
+		  delete from treasure_autoup where id=#{id}
+		</delete>
+		
+		
+    <!-- 查询所有的批次 -->
+    	<select id="getAllBatch" resultType="pd">
+    		select DISTINCT batch_code from treasure_autoup
+    	</select>
+    	
+    <!--查询该批次是否有在售的商品  -->
+    	<select id="getOnSaleProduct" parameterType="pd" resultType="pd">
+    		select p.id from treasure_autoup a,treasure_product p where a.product_id=p.id and a.batch_code=#{batch_code} and p.status=1	 
+    	</select>
+    
+     <!--查询该批次是否有下架的商品  -->
+    	<select id="downList" parameterType="pd" resultType="pd">
+    		select p.id from treasure_autoup a,treasure_product p where a.product_id=p.id and a.batch_code=#{batch_code} and p.status=2	 
+    	</select>
+     <!-- 删除该批次 -->
+     	<delete id="deleteBatchAuto" parameterType="pd" >
+     	delete from treasure_autoup where batch_code=#{batch_code}
+     	</delete>
+     	
+     	
+    <!-- 自动上架修改状态 -->
+	<update id="autoUpProductchangeStatus" parameterType="pd">
+	 update treasure_product set status =1,
+	 issue=#{issue},
+	 putaway_date=#{putaway_date},
+	 maturity_date=#{maturity_date},
+	 date_updated=#{date_updated}
+	 where id=#{id} and status=2
+	</update>
+	
+	<!-- 改变批次表 -->
+	<update id="updateBatchForm" parameterType="pd">
+		 update treasure_autoup set is_up=1,update_time=NOW() where product_id=#{id}
+	</update>
+	
+	<!-- 查询退款订单 -->
+	<select id="findReturnOrder" parameterType="pd" resultType="pd">
+	 select id from treasure_order where treasure_id=#{id} and status=3
+	</select>
+	
+	
+	<!-- 改变商品状态废弃 -->
+	<update id="cancleProduct" parameterType="pd">
+	 update treasure_product set status =#{status},date_updated=NOW()	
+	 where id=#{id} and status=#{oldstatus}
+	</update>
+	
+	<!-- 查询是否已经添加到时间定时任务里 -->
+	<select id="dataAutoList" parameterType="pd" resultType="pd">
+	 select * from treasure_date_autoup where treasure_product_id=#{product_id}
+	</select>
+	
+	<!-- 查询可以执行时间定时任务的商品 -->
+	<select id="getDateAutoList" parameterType="pd" resultType="pd">
+		select * from treasure_date_autoup where show_time &lt;=#{currentTime} and is_up=0
+	</select>
+	
+	<!-- 自动根据时间自动上架 -->
+	<update id="updateDateAuto" parameterType="pd">
+		update treasure_product set issue=#{issue},
+		putaway_date=#{up_time},
+		date_updated=#{date_updated},
+		maturity_date=DATE_ADD(#{up_time},INTERVAL 90 day),
+		status=#{status}
+		where id=#{treasure_product_id} and status=2
+	</update>
+	
+	
+	<update id="updateDateAutoForm" parameterType="pd">
+		update treasure_date_autoup set is_up=1,
+		up_time=#{up_time} where treasure_product_id=#{treasure_product_id}
+	</update>
+	
+	
+	
+	<select id="getAllPro" parameterType="String" resultType="pd">
+	  select * from product_trade where date_created=#{time} and `status`=8;
+	</select>
+	
+	
+	<insert id="savePayMent" parameterType="java.util.List">
+	insert into  payment_trade_order (ptid,poid,pay_order_num,operator_id,operator_modify_id,create_time,update_time)
+	values
+	<foreach collection="list" item="item" index="index" separator="," >  
+				(
+				#{item.ptid},#{item.poid},#{item.pay_order_num},#{item.operator_id},#{item.operator_modify_id},#{item.create_time},#{item.update_time}
+				)
+            </foreach>
+	</insert>
+	
+	<insert id="saveCoupon" parameterType="java.util.List">
+		insert into  coupon (steam_uid,code,status,applied,is_num,is_active,date_created,description)
+		values
+	<foreach collection="list" item="item" index="index" separator="," >  
+				(
+				#{item.steam_uid},#{item.code},#{item.status},#{item.applied},#{item.is_num},#{item.is_active},#{item.date_created},#{item.description}
+				)
+            </foreach>
+	</insert>
+	
+</mapper>

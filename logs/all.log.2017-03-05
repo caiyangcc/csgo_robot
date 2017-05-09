@@ -1,0 +1,4 @@
+2017-03-05 23:59:41,419  INFO DruidDataSource:655 - {dataSource-1} inited
+  2017-03-05 23:59:41,458 ERROR UpdateYService:159 - 查询出box_item_id为空的箱子:[]
+  2017-03-05 23:59:41,498  INFO ReportJobForSellerRankingService:146 - 分析2017-03-05的数据完成。总共耗时为：316毫秒。
+  

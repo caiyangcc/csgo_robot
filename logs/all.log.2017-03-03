@@ -1,0 +1,241 @@
+2017-03-03 17:37:05,573  INFO AppController:48 - Starting AppController on SO032YZZVSMQVSS with PID 427780 (D:\eclipsejavaee\csgo_robot\target\classes started by Administrator in D:\eclipsejavaee\csgo_robot)
+  2017-03-03 17:37:05,578  INFO AppController:666 - No active profile set, falling back to default profiles: default
+  2017-03-03 17:37:05,638  INFO AnnotationConfigEmbeddedWebApplicationContext:578 - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@26a7b76d: startup date [Fri Mar 03 17:37:05 CST 2017]; root of context hierarchy
+  2017-03-03 17:37:05,798  INFO Version:17 - HV000001: Hibernate Validator 5.2.2.Final
+  2017-03-03 17:37:06,209  INFO XmlBeanDefinitionReader:317 - Loading XML bean definitions from class path resource [applicationContext.xml]
+  2017-03-03 17:37:06,379  INFO DefaultListableBeanFactory:839 - Overriding bean definition for bean 'beanNameViewResolver' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+  2017-03-03 17:37:06,404  WARN ClassPathMapperScanner:167 - No MyBatis mapper was found in '[com.softisland]' package. Please check your configuration.
+  2017-03-03 17:37:06,756  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:328 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$3a2425d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+  2017-03-03 17:37:07,492  INFO TomcatEmbeddedServletContainer:81 - Tomcat initialized with port(s): 8085 (http)
+  2017-03-03 17:37:07,515  INFO StandardService:180 - Starting service Tomcat
+  2017-03-03 17:37:07,516  INFO StandardEngine:180 - Starting Servlet Engine: Apache Tomcat/8.0.30
+  2017-03-03 17:37:07,766  INFO TldScanner:180 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+  2017-03-03 17:37:07,769  INFO [/]:180 - Initializing Spring embedded WebApplicationContext
+  2017-03-03 17:37:07,769  INFO ContextLoader:272 - Root WebApplicationContext: initialization completed in 2134 ms
+  2017-03-03 17:37:08,090  INFO ServletRegistrationBean:189 - Mapping servlet: 'dispatcherServlet' to [/]
+  2017-03-03 17:37:08,093  INFO FilterRegistrationBean:258 - Mapping filter: 'characterEncodingFilter' to: [/*]
+  2017-03-03 17:37:08,094  INFO FilterRegistrationBean:258 - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+  2017-03-03 17:37:08,094  INFO FilterRegistrationBean:258 - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+  2017-03-03 17:37:08,094  INFO FilterRegistrationBean:258 - Mapping filter: 'requestContextFilter' to: [/*]
+  2017-03-03 17:37:09,103  WARN AnnotationConfigEmbeddedWebApplicationContext:546 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'startQuertz' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceTrigger' while setting bean property 'triggers' with key [7]; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'updatePriceTrigger' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceDetail' while setting bean property 'jobDetail'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'updatePriceDetail' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceService' while setting bean property 'targetObject'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'updatePriceService' is defined
+  2017-03-03 17:37:09,106  INFO StandardService:180 - Stopping service Tomcat
+  2017-03-03 17:37:09,132  WARN WebappClassLoaderBase:180 - The web application [ROOT] appears to have started a thread named [Abandoned connection cleanup thread] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.lang.Object.wait(Native Method)
+ java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:142)
+ com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:43)
+  2017-03-03 17:37:09,155 ERROR SpringApplication:827 - Application startup failed
+  org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'startQuertz' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceTrigger' while setting bean property 'triggers' with key [7]; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'updatePriceTrigger' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceDetail' while setting bean property 'jobDetail'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'updatePriceDetail' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceService' while setting bean property 'targetObject'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'updatePriceService' is defined
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:359)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:108)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveManagedList(BeanDefinitionValueResolver.java:382)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:157)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1481)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1226)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:753)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:839)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:538)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:118)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:766)
+	at org.springframework.boot.SpringApplication.createAndRefreshContext(SpringApplication.java:361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1191)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1180)
+	at com.softisland.AppController.main(AppController.java:13)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'updatePriceTrigger' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceDetail' while setting bean property 'jobDetail'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'updatePriceDetail' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceService' while setting bean property 'targetObject'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'updatePriceService' is defined
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:359)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:108)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1481)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1226)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:351)
+	... 21 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'updatePriceDetail' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceService' while setting bean property 'targetObject'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'updatePriceService' is defined
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:359)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:108)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1481)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1226)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:351)
+	... 31 more
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'updatePriceService' is defined
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanDefinition(DefaultListableBeanFactory.java:698)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getMergedLocalBeanDefinition(AbstractBeanFactory.java:1175)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:284)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:351)
+	... 41 more
+2017-03-03 17:37:09,158  INFO ClasspathLoggingApplicationListener:57 - Application failed to start with classpath: [file:/D:/eclipsejavaee/csgo_robot/target/classes/, file:/D:/repo/org/springframework/boot/spring-boot-starter/1.3.2.RELEASE/spring-boot-starter-1.3.2.RELEASE.jar, file:/D:/repo/org/springframework/boot/spring-boot/1.3.2.RELEASE/spring-boot-1.3.2.RELEASE.jar, file:/D:/repo/org/springframework/boot/spring-boot-autoconfigure/1.3.2.RELEASE/spring-boot-autoconfigure-1.3.2.RELEASE.jar, file:/D:/repo/org/springframework/spring-core/4.2.4.RELEASE/spring-core-4.2.4.RELEASE.jar, file:/D:/repo/org/yaml/snakeyaml/1.16/snakeyaml-1.16.jar, file:/D:/repo/org/springframework/boot/spring-boot-starter-log4j/1.3.2.RELEASE/spring-boot-starter-log4j-1.3.2.RELEASE.jar, file:/D:/repo/org/slf4j/jcl-over-slf4j/1.7.13/jcl-over-slf4j-1.7.13.jar, file:/D:/repo/org/slf4j/jul-to-slf4j/1.7.13/jul-to-slf4j-1.7.13.jar, file:/D:/repo/org/slf4j/slf4j-log4j12/1.7.13/slf4j-log4j12-1.7.13.jar, file:/D:/repo/log4j/log4j/1.2.17/log4j-1.2.17.jar, file:/D:/repo/org/springframework/boot/spring-boot-starter-web/1.3.2.RELEASE/spring-boot-starter-web-1.3.2.RELEASE.jar, file:/D:/repo/org/springframework/boot/spring-boot-starter-tomcat/1.3.2.RELEASE/spring-boot-starter-tomcat-1.3.2.RELEASE.jar, file:/D:/repo/org/apache/tomcat/embed/tomcat-embed-logging-juli/8.0.30/tomcat-embed-logging-juli-8.0.30.jar, file:/D:/repo/org/apache/tomcat/embed/tomcat-embed-websocket/8.0.30/tomcat-embed-websocket-8.0.30.jar, file:/D:/repo/org/springframework/boot/spring-boot-starter-validation/1.3.2.RELEASE/spring-boot-starter-validation-1.3.2.RELEASE.jar, file:/D:/repo/org/hibernate/hibernate-validator/5.2.2.Final/hibernate-validator-5.2.2.Final.jar, file:/D:/repo/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar, file:/D:/repo/org/jboss/logging/jboss-logging/3.3.0.Final/jboss-logging-3.3.0.Final.jar, file:/D:/repo/com/fasterxml/classmate/1.1.0/classmate-1.1.0.jar, file:/D:/repo/com/fasterxml/jackson/core/jackson-databind/2.6.5/jackson-databind-2.6.5.jar, file:/D:/repo/com/fasterxml/jackson/core/jackson-annotations/2.6.5/jackson-annotations-2.6.5.jar, file:/D:/repo/com/fasterxml/jackson/core/jackson-core/2.6.5/jackson-core-2.6.5.jar, file:/D:/repo/org/springframework/spring-web/4.2.4.RELEASE/spring-web-4.2.4.RELEASE.jar, file:/D:/repo/org/springframework/spring-webmvc/4.2.4.RELEASE/spring-webmvc-4.2.4.RELEASE.jar, file:/D:/repo/org/springframework/spring-expression/4.2.4.RELEASE/spring-expression-4.2.4.RELEASE.jar, file:/D:/repo/org/springframework/boot/spring-boot-starter-aop/1.3.2.RELEASE/spring-boot-starter-aop-1.3.2.RELEASE.jar, file:/D:/repo/org/springframework/spring-aop/4.2.4.RELEASE/spring-aop-4.2.4.RELEASE.jar, file:/D:/repo/aopalliance/aopalliance/1.0/aopalliance-1.0.jar, file:/D:/repo/org/aspectj/aspectjweaver/1.8.8/aspectjweaver-1.8.8.jar, file:/D:/repo/org/apache/tomcat/embed/tomcat-embed-jasper/8.0.30/tomcat-embed-jasper-8.0.30.jar, file:/D:/repo/org/apache/tomcat/embed/tomcat-embed-core/8.0.30/tomcat-embed-core-8.0.30.jar, file:/D:/repo/org/apache/tomcat/embed/tomcat-embed-el/8.0.30/tomcat-embed-el-8.0.30.jar, file:/D:/repo/org/eclipse/jdt/core/compiler/ecj/4.4.2/ecj-4.4.2.jar, file:/D:/repo/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar, file:/D:/repo/org/springframework/boot/spring-boot-starter-jdbc/1.3.2.RELEASE/spring-boot-starter-jdbc-1.3.2.RELEASE.jar, file:/D:/repo/org/apache/tomcat/tomcat-jdbc/8.0.30/tomcat-jdbc-8.0.30.jar, file:/D:/repo/org/apache/tomcat/tomcat-juli/8.0.30/tomcat-juli-8.0.30.jar, file:/D:/repo/org/springframework/spring-jdbc/4.2.4.RELEASE/spring-jdbc-4.2.4.RELEASE.jar, file:/D:/repo/org/springframework/spring-tx/4.2.4.RELEASE/spring-tx-4.2.4.RELEASE.jar, file:/D:/repo/org/mybatis/spring/boot/mybatis-spring-boot-starter/1.1.1/mybatis-spring-boot-starter-1.1.1.jar, file:/D:/repo/org/mybatis/spring/boot/mybatis-spring-boot-autoconfigure/1.1.1/mybatis-spring-boot-autoconfigure-1.1.1.jar, file:/D:/repo/org/mybatis/mybatis/3.4.0/mybatis-3.4.0.jar, file:/D:/repo/org/mybatis/mybatis-spring/1.3.0/mybatis-spring-1.3.0.jar, file:/D:/repo/org/springframework/spring-context-support/4.2.4.RELEASE/spring-context-support-4.2.4.RELEASE.jar, file:/D:/repo/org/springframework/spring-beans/4.2.4.RELEASE/spring-beans-4.2.4.RELEASE.jar, file:/D:/repo/org/springframework/spring-context/4.2.4.RELEASE/spring-context-4.2.4.RELEASE.jar, file:/D:/repo/org/quartz-scheduler/quartz/2.2.1/quartz-2.2.1.jar, file:/D:/repo/c3p0/c3p0/0.9.1.1/c3p0-0.9.1.1.jar, file:/D:/repo/org/slf4j/slf4j-api/1.7.13/slf4j-api-1.7.13.jar, file:/D:/repo/com/alibaba/druid/1.0.9/druid-1.0.9.jar, file:/D:/repo/org/springframework/boot/spring-boot-starter-redis/1.3.2.RELEASE/spring-boot-starter-redis-1.3.2.RELEASE.jar, file:/D:/repo/org/springframework/data/spring-data-redis/1.6.2.RELEASE/spring-data-redis-1.6.2.RELEASE.jar, file:/D:/repo/redis/clients/jedis/2.7.3/jedis-2.7.3.jar, file:/D:/repo/org/apache/commons/commons-pool2/2.4.2/commons-pool2-2.4.2.jar]
+  2017-03-03 17:38:46,713  INFO AppController:48 - Starting AppController on SO032YZZVSMQVSS with PID 428704 (D:\eclipsejavaee\csgo_robot\target\classes started by Administrator in D:\eclipsejavaee\csgo_robot)
+  2017-03-03 17:38:46,713  INFO AppController:666 - No active profile set, falling back to default profiles: default
+  2017-03-03 17:38:46,759  INFO AnnotationConfigEmbeddedWebApplicationContext:578 - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@26a7b76d: startup date [Fri Mar 03 17:38:46 CST 2017]; root of context hierarchy
+  2017-03-03 17:38:46,926  INFO Version:17 - HV000001: Hibernate Validator 5.2.2.Final
+  2017-03-03 17:38:47,174  INFO XmlBeanDefinitionReader:317 - Loading XML bean definitions from class path resource [applicationContext.xml]
+  2017-03-03 17:38:47,310  INFO DefaultListableBeanFactory:839 - Overriding bean definition for bean 'beanNameViewResolver' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+  2017-03-03 17:38:47,329  WARN ClassPathMapperScanner:167 - No MyBatis mapper was found in '[com.softisland]' package. Please check your configuration.
+  2017-03-03 17:38:47,623  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:328 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$3a2425d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+  2017-03-03 17:38:48,176  INFO TomcatEmbeddedServletContainer:81 - Tomcat initialized with port(s): 8085 (http)
+  2017-03-03 17:38:48,189  INFO StandardService:180 - Starting service Tomcat
+  2017-03-03 17:38:48,190  INFO StandardEngine:180 - Starting Servlet Engine: Apache Tomcat/8.0.30
+  2017-03-03 17:38:48,348  INFO TldScanner:180 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+  2017-03-03 17:38:48,351  INFO [/]:180 - Initializing Spring embedded WebApplicationContext
+  2017-03-03 17:38:48,351  INFO ContextLoader:272 - Root WebApplicationContext: initialization completed in 1607 ms
+  2017-03-03 17:38:48,682  INFO ServletRegistrationBean:189 - Mapping servlet: 'dispatcherServlet' to [/]
+  2017-03-03 17:38:48,686  INFO FilterRegistrationBean:258 - Mapping filter: 'characterEncodingFilter' to: [/*]
+  2017-03-03 17:38:48,688  INFO FilterRegistrationBean:258 - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+  2017-03-03 17:38:48,688  INFO FilterRegistrationBean:258 - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+  2017-03-03 17:38:48,689  INFO FilterRegistrationBean:258 - Mapping filter: 'requestContextFilter' to: [/*]
+  2017-03-03 17:38:49,435  WARN AnnotationConfigEmbeddedWebApplicationContext:546 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'startQuertz' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceTrigger' while setting bean property 'triggers' with key [7]; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'updatePriceTrigger' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceDetail' while setting bean property 'jobDetail'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'updatePriceDetail' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceService' while setting bean property 'targetObject'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'updatePriceService' is defined
+  2017-03-03 17:38:49,450  INFO StandardService:180 - Stopping service Tomcat
+  2017-03-03 17:38:49,450  WARN WebappClassLoaderBase:180 - The web application [ROOT] appears to have started a thread named [Abandoned connection cleanup thread] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.lang.Object.wait(Native Method)
+ java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:142)
+ com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:43)
+  2017-03-03 17:38:49,467 ERROR SpringApplication:827 - Application startup failed
+  org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'startQuertz' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceTrigger' while setting bean property 'triggers' with key [7]; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'updatePriceTrigger' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceDetail' while setting bean property 'jobDetail'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'updatePriceDetail' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceService' while setting bean property 'targetObject'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'updatePriceService' is defined
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:359)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:108)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveManagedList(BeanDefinitionValueResolver.java:382)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:157)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1481)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1226)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:753)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:839)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:538)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:118)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:766)
+	at org.springframework.boot.SpringApplication.createAndRefreshContext(SpringApplication.java:361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1191)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1180)
+	at com.softisland.AppController.main(AppController.java:13)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'updatePriceTrigger' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceDetail' while setting bean property 'jobDetail'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'updatePriceDetail' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceService' while setting bean property 'targetObject'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'updatePriceService' is defined
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:359)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:108)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1481)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1226)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:351)
+	... 21 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'updatePriceDetail' defined in class path resource [applicationContext.xml]: Cannot resolve reference to bean 'updatePriceService' while setting bean property 'targetObject'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'updatePriceService' is defined
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:359)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:108)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1481)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1226)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:351)
+	... 31 more
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'updatePriceService' is defined
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanDefinition(DefaultListableBeanFactory.java:698)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getMergedLocalBeanDefinition(AbstractBeanFactory.java:1175)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:284)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:351)
+	... 41 more
+2017-03-03 17:38:49,467  INFO ClasspathLoggingApplicationListener:57 - Application failed to start with classpath: [file:/D:/eclipsejavaee/csgo_robot/target/classes/, file:/D:/repo/org/springframework/boot/spring-boot-starter/1.3.2.RELEASE/spring-boot-starter-1.3.2.RELEASE.jar, file:/D:/repo/org/springframework/boot/spring-boot/1.3.2.RELEASE/spring-boot-1.3.2.RELEASE.jar, file:/D:/repo/org/springframework/boot/spring-boot-autoconfigure/1.3.2.RELEASE/spring-boot-autoconfigure-1.3.2.RELEASE.jar, file:/D:/repo/org/springframework/spring-core/4.2.4.RELEASE/spring-core-4.2.4.RELEASE.jar, file:/D:/repo/org/yaml/snakeyaml/1.16/snakeyaml-1.16.jar, file:/D:/repo/org/springframework/boot/spring-boot-starter-log4j/1.3.2.RELEASE/spring-boot-starter-log4j-1.3.2.RELEASE.jar, file:/D:/repo/org/slf4j/jcl-over-slf4j/1.7.13/jcl-over-slf4j-1.7.13.jar, file:/D:/repo/org/slf4j/jul-to-slf4j/1.7.13/jul-to-slf4j-1.7.13.jar, file:/D:/repo/org/slf4j/slf4j-log4j12/1.7.13/slf4j-log4j12-1.7.13.jar, file:/D:/repo/log4j/log4j/1.2.17/log4j-1.2.17.jar, file:/D:/repo/org/springframework/boot/spring-boot-starter-web/1.3.2.RELEASE/spring-boot-starter-web-1.3.2.RELEASE.jar, file:/D:/repo/org/springframework/boot/spring-boot-starter-tomcat/1.3.2.RELEASE/spring-boot-starter-tomcat-1.3.2.RELEASE.jar, file:/D:/repo/org/apache/tomcat/embed/tomcat-embed-logging-juli/8.0.30/tomcat-embed-logging-juli-8.0.30.jar, file:/D:/repo/org/apache/tomcat/embed/tomcat-embed-websocket/8.0.30/tomcat-embed-websocket-8.0.30.jar, file:/D:/repo/org/springframework/boot/spring-boot-starter-validation/1.3.2.RELEASE/spring-boot-starter-validation-1.3.2.RELEASE.jar, file:/D:/repo/org/hibernate/hibernate-validator/5.2.2.Final/hibernate-validator-5.2.2.Final.jar, file:/D:/repo/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar, file:/D:/repo/org/jboss/logging/jboss-logging/3.3.0.Final/jboss-logging-3.3.0.Final.jar, file:/D:/repo/com/fasterxml/classmate/1.1.0/classmate-1.1.0.jar, file:/D:/repo/com/fasterxml/jackson/core/jackson-databind/2.6.5/jackson-databind-2.6.5.jar, file:/D:/repo/com/fasterxml/jackson/core/jackson-annotations/2.6.5/jackson-annotations-2.6.5.jar, file:/D:/repo/com/fasterxml/jackson/core/jackson-core/2.6.5/jackson-core-2.6.5.jar, file:/D:/repo/org/springframework/spring-web/4.2.4.RELEASE/spring-web-4.2.4.RELEASE.jar, file:/D:/repo/org/springframework/spring-webmvc/4.2.4.RELEASE/spring-webmvc-4.2.4.RELEASE.jar, file:/D:/repo/org/springframework/spring-expression/4.2.4.RELEASE/spring-expression-4.2.4.RELEASE.jar, file:/D:/repo/org/springframework/boot/spring-boot-starter-aop/1.3.2.RELEASE/spring-boot-starter-aop-1.3.2.RELEASE.jar, file:/D:/repo/org/springframework/spring-aop/4.2.4.RELEASE/spring-aop-4.2.4.RELEASE.jar, file:/D:/repo/aopalliance/aopalliance/1.0/aopalliance-1.0.jar, file:/D:/repo/org/aspectj/aspectjweaver/1.8.8/aspectjweaver-1.8.8.jar, file:/D:/repo/org/apache/tomcat/embed/tomcat-embed-jasper/8.0.30/tomcat-embed-jasper-8.0.30.jar, file:/D:/repo/org/apache/tomcat/embed/tomcat-embed-core/8.0.30/tomcat-embed-core-8.0.30.jar, file:/D:/repo/org/apache/tomcat/embed/tomcat-embed-el/8.0.30/tomcat-embed-el-8.0.30.jar, file:/D:/repo/org/eclipse/jdt/core/compiler/ecj/4.4.2/ecj-4.4.2.jar, file:/D:/repo/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar, file:/D:/repo/org/springframework/boot/spring-boot-starter-jdbc/1.3.2.RELEASE/spring-boot-starter-jdbc-1.3.2.RELEASE.jar, file:/D:/repo/org/apache/tomcat/tomcat-jdbc/8.0.30/tomcat-jdbc-8.0.30.jar, file:/D:/repo/org/apache/tomcat/tomcat-juli/8.0.30/tomcat-juli-8.0.30.jar, file:/D:/repo/org/springframework/spring-jdbc/4.2.4.RELEASE/spring-jdbc-4.2.4.RELEASE.jar, file:/D:/repo/org/springframework/spring-tx/4.2.4.RELEASE/spring-tx-4.2.4.RELEASE.jar, file:/D:/repo/org/mybatis/spring/boot/mybatis-spring-boot-starter/1.1.1/mybatis-spring-boot-starter-1.1.1.jar, file:/D:/repo/org/mybatis/spring/boot/mybatis-spring-boot-autoconfigure/1.1.1/mybatis-spring-boot-autoconfigure-1.1.1.jar, file:/D:/repo/org/mybatis/mybatis/3.4.0/mybatis-3.4.0.jar, file:/D:/repo/org/mybatis/mybatis-spring/1.3.0/mybatis-spring-1.3.0.jar, file:/D:/repo/org/springframework/spring-context-support/4.2.4.RELEASE/spring-context-support-4.2.4.RELEASE.jar, file:/D:/repo/org/springframework/spring-beans/4.2.4.RELEASE/spring-beans-4.2.4.RELEASE.jar, file:/D:/repo/org/springframework/spring-context/4.2.4.RELEASE/spring-context-4.2.4.RELEASE.jar, file:/D:/repo/org/quartz-scheduler/quartz/2.2.1/quartz-2.2.1.jar, file:/D:/repo/c3p0/c3p0/0.9.1.1/c3p0-0.9.1.1.jar, file:/D:/repo/org/slf4j/slf4j-api/1.7.13/slf4j-api-1.7.13.jar, file:/D:/repo/com/alibaba/druid/1.0.9/druid-1.0.9.jar, file:/D:/repo/org/springframework/boot/spring-boot-starter-redis/1.3.2.RELEASE/spring-boot-starter-redis-1.3.2.RELEASE.jar, file:/D:/repo/org/springframework/data/spring-data-redis/1.6.2.RELEASE/spring-data-redis-1.6.2.RELEASE.jar, file:/D:/repo/redis/clients/jedis/2.7.3/jedis-2.7.3.jar, file:/D:/repo/org/apache/commons/commons-pool2/2.4.2/commons-pool2-2.4.2.jar]
+  2017-03-03 17:40:09,616  INFO AppController:48 - Starting AppController on SO032YZZVSMQVSS with PID 429212 (D:\eclipsejavaee\csgo_robot\target\classes started by Administrator in D:\eclipsejavaee\csgo_robot)
+  2017-03-03 17:40:09,617  INFO AppController:666 - No active profile set, falling back to default profiles: default
+  2017-03-03 17:40:09,697  INFO AnnotationConfigEmbeddedWebApplicationContext:578 - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@26a7b76d: startup date [Fri Mar 03 17:40:09 CST 2017]; root of context hierarchy
+  2017-03-03 17:40:09,725  INFO Version:17 - HV000001: Hibernate Validator 5.2.2.Final
+  2017-03-03 17:40:10,081  INFO XmlBeanDefinitionReader:317 - Loading XML bean definitions from class path resource [applicationContext.xml]
+  2017-03-03 17:40:10,206  INFO DefaultListableBeanFactory:839 - Overriding bean definition for bean 'beanNameViewResolver' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+  2017-03-03 17:40:10,224  WARN ClassPathMapperScanner:167 - No MyBatis mapper was found in '[com.softisland]' package. Please check your configuration.
+  2017-03-03 17:40:10,494  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:328 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$3a2425d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+  2017-03-03 17:40:11,024  INFO TomcatEmbeddedServletContainer:81 - Tomcat initialized with port(s): 8085 (http)
+  2017-03-03 17:40:11,034  INFO StandardService:180 - Starting service Tomcat
+  2017-03-03 17:40:11,035  INFO StandardEngine:180 - Starting Servlet Engine: Apache Tomcat/8.0.30
+  2017-03-03 17:40:11,267  INFO TldScanner:180 - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+  2017-03-03 17:40:11,270  INFO [/]:180 - Initializing Spring embedded WebApplicationContext
+  2017-03-03 17:40:11,270  INFO ContextLoader:272 - Root WebApplicationContext: initialization completed in 1575 ms
+  2017-03-03 17:40:11,506  INFO ServletRegistrationBean:189 - Mapping servlet: 'dispatcherServlet' to [/]
+  2017-03-03 17:40:11,509  INFO FilterRegistrationBean:258 - Mapping filter: 'characterEncodingFilter' to: [/*]
+  2017-03-03 17:40:11,510  INFO FilterRegistrationBean:258 - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+  2017-03-03 17:40:11,510  INFO FilterRegistrationBean:258 - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+  2017-03-03 17:40:11,510  INFO FilterRegistrationBean:258 - Mapping filter: 'requestContextFilter' to: [/*]
+  2017-03-03 17:40:12,214  INFO StdSchedulerFactory:1184 - Using default implementation for ThreadExecutor
+  2017-03-03 17:40:12,227  INFO SchedulerSignalerImpl:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+  2017-03-03 17:40:12,227  INFO QuartzScheduler:240 - Quartz Scheduler v.2.2.1 created.
+  2017-03-03 17:40:12,228  INFO RAMJobStore:155 - RAMJobStore initialized.
+  2017-03-03 17:40:12,229  INFO QuartzScheduler:305 - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'startQuertz' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+  2017-03-03 17:40:12,229  INFO StdSchedulerFactory:1339 - Quartz scheduler 'startQuertz' initialized from an externally provided properties instance.
+  2017-03-03 17:40:12,229  INFO StdSchedulerFactory:1343 - Quartz scheduler version: 2.2.1
+  2017-03-03 17:40:12,230  INFO QuartzScheduler:2311 - JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@66e8997c
+  2017-03-03 17:40:12,417  INFO RequestMappingHandlerAdapter:532 - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@26a7b76d: startup date [Fri Mar 03 17:40:09 CST 2017]; root of context hierarchy
+  2017-03-03 17:40:12,470  INFO RequestMappingHandlerMapping:527 - Mapped "{[/message]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.message()
+  2017-03-03 17:40:12,471  INFO RequestMappingHandlerMapping:527 - Mapped "{[/addPayMent]}" onto public void com.softisland.controller.TestConcller.addPayMent()
+  2017-03-03 17:40:12,471  INFO RequestMappingHandlerMapping:527 - Mapped "{[/addCoupon]}" onto public void com.softisland.controller.TestConcller.addCoupon()
+  2017-03-03 17:40:12,472  INFO RequestMappingHandlerMapping:527 - Mapped "{[/defaultPage]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.defaultPage()
+  2017-03-03 17:40:12,472  INFO RequestMappingHandlerMapping:527 - Mapped "{[/webSet]}" onto public org.springframework.web.servlet.ModelAndView com.softisland.controller.TestConcller.webSet()
+  2017-03-03 17:40:12,474  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+  2017-03-03 17:40:12,474  INFO RequestMappingHandlerMapping:527 - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+  2017-03-03 17:40:12,498  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2017-03-03 17:40:12,498  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2017-03-03 17:40:12,526  INFO SimpleUrlHandlerMapping:341 - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+  2017-03-03 17:40:12,658  INFO AnnotationMBeanExporter:431 - Registering beans for JMX exposure on startup
+  2017-03-03 17:40:12,659  INFO AnnotationMBeanExporter:912 - Bean with name 'DataSource' has been autodetected for JMX exposure
+  2017-03-03 17:40:12,664  INFO AnnotationMBeanExporter:667 - Located MBean 'DataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=DataSource,type=DruidDataSource]
+  2017-03-03 17:40:12,668  INFO DefaultLifecycleProcessor:341 - Starting beans in phase 2147483647
+  2017-03-03 17:40:12,668  INFO SchedulerFactoryBean:647 - Starting Quartz Scheduler now
+  2017-03-03 17:40:12,669  INFO QuartzScheduler:575 - Scheduler startQuertz_$_NON_CLUSTERED started.
+  2017-03-03 17:40:12,691  INFO Http11NioProtocol:180 - Initializing ProtocolHandler ["http-nio-8085"]
+  2017-03-03 17:40:12,697  INFO Http11NioProtocol:180 - Starting ProtocolHandler ["http-nio-8085"]
+  2017-03-03 17:40:12,709  INFO NioSelectorPool:180 - Using a shared selector for servlet write/read
+  2017-03-03 17:40:12,860  INFO TomcatEmbeddedServletContainer:162 - Tomcat started on port(s): 8085 (http)
+  2017-03-03 17:40:12,864  INFO AppController:57 - Started AppController in 3.482 seconds (JVM running for 3.751)
+  2017-03-03 17:40:43,101  INFO [/]:180 - Initializing Spring FrameworkServlet 'dispatcherServlet'
+  2017-03-03 17:40:43,101  INFO DispatcherServlet:489 - FrameworkServlet 'dispatcherServlet': initialization started
+  2017-03-03 17:40:43,115  INFO DispatcherServlet:508 - FrameworkServlet 'dispatcherServlet': initialization completed in 14 ms
+  2017-03-03 17:40:43,144  INFO WebLogAspect:33 - URL : http://localhost:8085/addPayMent.do
+  2017-03-03 17:40:43,144  INFO WebLogAspect:34 - HTTP_METHOD : GET
+  2017-03-03 17:40:43,145  INFO WebLogAspect:35 - IP : 0:0:0:0:0:0:0:1
+  2017-03-03 17:40:43,146  INFO WebLogAspect:36 - CLASS_METHOD : com.softisland.controller.TestConcller.addPayMent
+  2017-03-03 17:40:43,147  INFO WebLogAspect:37 - ARGS : []
+  2017-03-03 17:40:43,401  INFO DruidDataSource:655 - {dataSource-1} inited
+  2017-03-03 17:40:47,248  INFO WebLogAspect:44 - RESPONSE : null
+  2017-03-03 17:41:24,708  INFO WebLogAspect:33 - URL : http://localhost:8085/addCoupon.do
+  2017-03-03 17:41:24,709  INFO WebLogAspect:34 - HTTP_METHOD : GET
+  2017-03-03 17:41:24,710  INFO WebLogAspect:35 - IP : 0:0:0:0:0:0:0:1
+  2017-03-03 17:41:24,711  INFO WebLogAspect:36 - CLASS_METHOD : com.softisland.controller.TestConcller.addCoupon
+  2017-03-03 17:41:24,711  INFO WebLogAspect:37 - ARGS : []
+  2017-03-03 17:41:29,415  INFO WebLogAspect:44 - RESPONSE : null
+  2017-03-03 17:50:00,056  INFO XmlBeanDefinitionReader:317 - Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+  2017-03-03 17:50:00,070  INFO SQLErrorCodesFactory:126 - SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+  

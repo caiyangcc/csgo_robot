@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="QueueMapper">
+	
+		<select id="getAllQueueList" parameterType="page" resultType="pd">
+			select q.*,t.steam_pid as old_steam_pid,t.bots_steam_uid as old_bots_steam_uid,t.status as old_status,p.name from product_trade_handle_queue q,product_trade t,product p where q.pt_id=t.id and t.product_id=p.id
+			<if test="pd.tid!=null and pd.tid!=''">
+		    and q.pt_id = #{pd.tid}
+			</if>
+			<if test="pd.statu!=null and pd.statu!='-2' and pd.statu!='-1'">
+		    and q.statu = #{pd.statu}
+			</if>
+			<if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!='' and pd.lastLoginStart!=null and pd.lastLoginStart!=''">
+            and q.handle_time between #{pd.lastLoginStart} and #{pd.lastLoginEnd}
+        	</if>
+			order by q.handle_time desc 
+			limit ${pd.currentRusult},${pd.showCount}
+		</select>
+		
+		
+		<select id="getAllQueueListCount" parameterType="page" resultType="int">
+			select  count(1) from product_trade_handle_queue q where 1=1
+			
+			<if test="pd.tid!=null and pd.tid!=''">
+		     and q.pt_id = #{pd.tid}
+			</if>
+			<if test="pd.statu!=null and pd.statu!='-2' and pd.statu!='-1'">
+		    and q.statu = #{pd.statu}
+			</if>
+			<if test="pd.lastLoginEnd!=null and pd.lastLoginEnd!='' and pd.lastLoginStart!=null and pd.lastLoginStart!=''">
+            and q.handle_time between #{pd.lastLoginStart} and #{pd.lastLoginEnd}
+        	</if>
+		</select>
+		
+		
+		<select id="checkStatus" parameterType="com.softisland.entity.CheckQueue" resultType="pd">
+			select app_id,status from product_trade where `status` in(0,6,11) and id=#{pt_id}
+		</select>
+		
+		<select id="checkqueuept_id" parameterType="com.softisland.entity.CheckQueue" resultType="int">
+			select count(1) from product_trade_handle_queue where pt_id=#{pt_id} and `statu`=0
+		</select>
+		
+		<select id="checkqueuenew_steam_pid" parameterType="com.softisland.entity.CheckQueue" resultType="int">
+			select count(1) from product_trade_handle_queue where new_steam_pid=#{p_id} and `statu` in(0,1)
+		</select>
+		
+		<update id="updateOldStauts" parameterType="com.softisland.entity.CheckQueue">
+			update product_trade_handle_queue set `statu`=3,Remark=#{remark} where pt_id=#{pt_id} and `statu`=0
+		</update>
+		
+		<select id="saveCheckQueue" parameterType="com.softisland.entity.CheckQueue">
+		 	insert into product_trade_handle_queue(pt_id,pt_statu,new_steam_pid,new_steam_botid,lock_time,statu,appid)
+		 	values(#{pt_id},#{status},#{p_id},#{bot_id},#{lock_time},0,#{app_id})
+		</select>
+		
+		<select id="getSingleInfo" parameterType="pd" resultType="pd">
+			select steam_pid,bots_steam_uid,date_lock_end from product_trade where id=${id}
+		</select>
+		
+		<select id="updateCloseCheckQueue" parameterType="pd" resultType="pd">
+			update product_trade_handle_queue set `statu`=3,Remark=#{Remark} where queID in (${ids}) and `statu`=0
+		</select>
+		
+		
+		<select id="getAllJobListlistPage" parameterType="page" resultType="pd">
+			select * from product_trade_handle_job where 1=1 
+			order by date_update desc
+		</select>
+		
+		
+		<select id="checkJobStatus" parameterType="pd" resultType="int">
+			select count(1) from product_trade where id=${p_id} and `status` in(${status}) and steam_uid=#{steam_uid}
+		</select>
+		
+		
+		<select id="checkSameJob" parameterType="pd" resultType="int">
+		  select count(1) from product_trade_handle_job where pt_id=${p_id}  and `status` in(1,2,6)
+		</select>
+		
+		<select id="checkGroup" parameterType="pd" resultType="int">
+		  select count(1) from product_trade pt,product_group_sales ps where pt.group_id=ps.id and pt.group_id is not null and ps.`status` not in (1,2,3) and pt.id=${p_id}
+		</select>
+		
+		<select id="checkOrder" parameterType="pd" resultType="int">
+		  select count(1) from order where `status`=0 and order_object_id =${p_id}
+		</select>
+		
+		<select id="getMoreData" parameterType="String" resultType="pd">
+			select pt.id,p.name,pt.status as p_status,pt.steam_uid,pt.app_id,p.icon_url,p.market_hash_name,pt.date_store from product_trade pt,product p where pt.product_id=p.id and pt.id=#{p_id}
+		</select>
+		
+		<select id="saveJobData"  parameterType="pd" >
+		 insert into product_trade_handle_job(type,pt_id,p_name,p_status,steam_uid,date_create,date_update,description,status,app_id,icon_url,market_hash_name,date_store)
+		 values(#{type},#{id},#{name},#{p_status},#{steam_uid},NOW(),NOW(),#{description},#{status},#{app_id},#{icon_url},#{market_hash_name},#{date_store})
+		</select>
+		
+		<select id="goShowJobPage" parameterType="pd" resultType="pd">
+			select * from product_trade_handle_job where id=${id}
+		</select>
+		
+		<select id="getAllDealGoods" parameterType="pd" resultType="pd">
+		select j.*,r.steamPid,r.steamOid,r.robotSteamUid,r.actions from product_trade_handle_job j,robot_check_product r where j.market_hash_name=r.marketHashName and j.icon_url=r.iconUrl and j.bots_steam_uid=r.robotSteamUid
+		and r.checkTime >=#{lastMIn} and r.checkTime &lt; #{current} and j.app_id in(433850,295110,440,570) and j.`status`=1 group by r.steamPid
+		union 
+		 select j.*,r.steamPid,r.steamOid,r.robotSteamUid,r.actions from product_trade_handle_job j,robot_check_product r where j.market_hash_name=r.marketHashName and j.icon_url=r.iconUrl and j.bots_steam_uid=r.robotSteamUid
+		and r.checkTime >=#{lastMIn} and r.checkTime &lt; #{current} and j.app_id =730 and j.product_category_id in(6,7,8,9,10,11,12,13)  and j.`status`=1 group by j.market_hash_name,j.icon_url,j.bots_steam_uid
+		union 
+		select j.*,r.steamPid,r.steamOid,r.robotSteamUid,r.actions from product_trade_handle_job j,robot_check_product r where j.market_hash_name=r.marketHashName and j.icon_url=r.iconUrl and j.bots_steam_uid=r.robotSteamUid
+		and r.checkTime >=#{lastMIn} and r.checkTime &lt; #{current} and j.app_id=730 and  j.product_category_id not in(6,7,8,9,10,11,12,13) and j.`status`=1 group by r.steamPid
+		union 
+		select j.*,r.steamPid,r.steamOid,r.robotSteamUid,r.actions from product_trade_handle_job j,robot_check_product r where j.market_hash_name=r.marketHashName and j.icon_url=r.iconUrl and j.bots_steam_uid=r.robotSteamUid
+		and r.checkTime >=#{lastMIn} and r.checkTime &lt; #{current} and j.app_id =753  and j.`status`=1 group by j.market_hash_name,j.icon_url,j.bots_steam_uid
+		</select>
+	
+	
+		<select id="checkPid" parameterType="pd" resultType="int">
+		 select count(1) from product_trade where id=${pt_id} and steam_pid=#{steamPid}
+		</select>
+	
+		
+		<select id="checkOid" parameterType="pd" resultType="int">
+		 select count(1) from product_trade where id=${pt_id} and steam_oid=#{steamOid}
+		</select>
+		
+		<select id="updateJobStatus" parameterType="pd">
+		 update product_trade_handle_job set `status`=2,date_update=NOW(),remark=#{remark} where id=${id} and `status`=6
+		</select>
+		
+		<select id="checkPidIsExist" parameterType="pd" resultType="int">
+		 select count(1) from product_trade where steam_pid=#{steamPid}
+		</select>
+		
+		<update id="updateJobStatusForAlready" parameterType="com.softisland.entity.CheckQueue">
+		update product_trade_handle_job set `status`=4,date_update=NOW() where pt_id=${pt_id} and `status`=6
+		</update>
+		
+		<update id="updateJobStatusToIng" parameterType="String">
+		update product_trade_handle_job set `status`=6,date_update=NOW() where pt_id=#{pt_id} and `status`=1
+		</update>
+		
+		<select id="findIsGoodsDeal" parameterType="pd" resultType="int">
+			select count(1) from product_trade_handle_job where pt_id=${pt_id} and `status`=6
+		</select>
+</mapper>
